@@ -2,11 +2,24 @@
 {
 	 background-image: url('../Images/BattleShip_BackGround.png') ;
 }
-.MainButton
+.OrangeBtn
 {
-    color: #fe9a00;
+    background-color: #fe9a00;
+    border-color:  #fe9a00;
+    border-radius: 11px;
+    padding: 10px 40px;
+    color: white;
+    font-size: 30px;
+    width: 200px;
+    max-width: 100%;
 }
-.label
+.h1
 {
     color: #fe9a00;
+    font-size: 70px;
+}
+
+.OrangeBtn:active
+{
+    color: grey;
 }
