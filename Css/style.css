@@ -2,11 +2,43 @@
 {
 	 background-image: url('../Images/BattleShip_BackGround.png') ;
 }
-.MainButton
+.OrangeBtn
+{
+    background-color: #fe9a00;
+    border-color:  #fe9a00;
+    border-radius: 11px;
+    padding: 10px 40px;
+    color: white;
+    font-size: 30px;
+    width: 200px;
+    max-width: 100%;
+}
+.h1
 {
     color: #fe9a00;
+    font-size: 70px;
 }
-.label
+.h2
 {
     color: #fe9a00;
+    font-size: 35px;
 }
+.input
+{
+    Background-color: rgba(129, 123, 123, 0.61);
+    border-color: rgba(129, 123, 123, 0.61);
+    border-radius: 5px;
+    color: white;
+    font-size: x-large;
+}
+.Background
+{
+    Background-color: #0f0901b9;
+}
+.OrangeBtn:active
+{
+    color: grey;
+}
+
+
+
