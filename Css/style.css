@@ -4,6 +4,7 @@
 }
 .OrangeBtn
 {
+    display:block;
     background-color: #fe9a00;
     border-color:  #fe9a00;
     border-radius: 11px;
@@ -12,6 +13,8 @@
     font-size: 30px;
     width: 200px;
     max-width: 100%;
+    margin-left: -(X/2)u;
+   margin-top: -(Y/2)u;
 }
 .h1
 {
@@ -35,10 +38,16 @@
 {
     Background-color: #0f0901b9;
 }
+.OrangeBtn:hover
+{
+    text-decoration: none;
+    color: white;
+}
 .OrangeBtn:active
 {
     color: grey;
 }
+
 
 
 
