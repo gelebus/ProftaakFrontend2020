@@ -57,6 +57,10 @@
     flex-direction: column;
 }
 
+.LobbyPlayer {
+    flex-direction: row;
+}
+
 .OrangeBtn:focus,
 .OrangeBtn:hover {
     color: white;
