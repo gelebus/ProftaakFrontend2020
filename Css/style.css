@@ -48,9 +48,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: rgb(0, 0, 0);
+    height: 30px;
+    width: 30px;
+    background-color: rgba(63, 63, 63, 0.397);
 }
 .checkmark:after 
 {
@@ -66,10 +66,10 @@
 
 .HiddenCheckBox .checkmark:after 
 {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
+    left: 11px;
+    top: 6px;
+    width: 8px;
+    height: 13px;
     border: solid orange;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
