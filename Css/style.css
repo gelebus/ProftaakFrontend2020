@@ -95,6 +95,16 @@
     margin-top: -10px;
     margin-left: -10px;
 }
+.ul2{
+    list-style: decimal;
+    margin-left: 0px;
+}
+
+.scrollbar{
+    max-height: 420px;
+    min-height: 420px;
+    overflow-y: scroll;
+}
 
 .input {
     Background-color: rgba(129, 123, 123, 0.61);
