@@ -1,6 +1,5 @@
 .body {
     background-image: url('../Images/BattleShip_BackGround.png');
-    background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
 }
@@ -101,8 +100,8 @@
 }
 
 .scrollbar{
-    max-height: 420px;
-    min-height: 420px;
+    max-height: 495px;
+    min-height: 495px;
     overflow-y: scroll;
 }
 
