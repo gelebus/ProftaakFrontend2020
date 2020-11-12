@@ -20,31 +20,29 @@
     text-decoration: none;
 }
 
-.HiddenCheckBox
-{
+.HiddenCheckBox {
+    height: 30px;
+    width: 30px;
     display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.HiddenCheckBox input
-{
+.HiddenCheckBox input {
     position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
-.checkmark 
-{
+.checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -52,20 +50,18 @@
     width: 30px;
     background-color: rgba(63, 63, 63, 0.397);
 }
-.checkmark:after 
-{
+
+.checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-.HiddenCheckBox input:checked ~ .checkmark:after 
-{
-    display: block; 
+.HiddenCheckBox input:checked~.checkmark:after {
+    display: block;
 }
 
-.HiddenCheckBox .checkmark:after 
-{
+.HiddenCheckBox .checkmark:after {
     left: 11px;
     top: 6px;
     width: 8px;
