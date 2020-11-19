@@ -11,6 +11,7 @@
     border-radius: 11px;
     padding: 10px 40px;
     color: white;
+    cursor: pointer;
     font-size: 30px;
     width: 235px;
     max-width: 100%;
@@ -18,6 +19,7 @@
     text-align: center;
     text-decoration: none;
 }
+
 .GameBtn {
     margin-right: -4px;
     padding-left: 8;
@@ -28,18 +30,22 @@
     background-color: rgba(23, 23, 23, 0.397);
     border-color: rgba(23, 23, 23, 0.397);
 }
+
 .GameBtn:hover {
     Background-color: rgba(168, 168, 168, 0.582);
     border-color: rgba(23, 23, 23, 0.597);
 }
-.missed{
+
+.missed {
     background-color: cornflowerblue;
 }
-.Hit{
+
+.Hit {
     background-color: crimson;
 }
-.BtnContainer{
-    width: 450px; 
+
+.BtnContainer {
+    width: 450px;
     height: 450px;
     padding-right: 5px;
     padding-top: 5px;
@@ -120,12 +126,13 @@
     margin-top: -10px;
     margin-left: -10px;
 }
-.ul2{
+
+.ul2 {
     list-style: decimal;
     margin-left: 0px;
 }
 
-.scrollbar{
+.scrollbar {
     max-height: 495px;
     min-height: 495px;
     overflow-y: scroll;
@@ -145,8 +152,8 @@
     flex-direction: column;
 }
 
-.Background2{
-    
+.Background2 {
+
     Background-color: #888887b9;
 }
 
