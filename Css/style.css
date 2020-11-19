@@ -18,6 +18,32 @@
     text-align: center;
     text-decoration: none;
 }
+.GameBtn {
+    margin-right: -4px;
+    padding-left: 8;
+    padding-right: 8;
+    resize: none;
+    height: 40;
+    width: 40;
+    background-color: rgba(23, 23, 23, 0.397);
+    border-color: rgba(23, 23, 23, 0.397);
+}
+.GameBtn:hover {
+    Background-color: rgba(168, 168, 168, 0.582);
+    border-color: rgba(23, 23, 23, 0.597);
+}
+.missed{
+    background-color: cornflowerblue;
+}
+.Hit{
+    background-color: crimson;
+}
+.BtnContainer{
+    width: 450px; 
+    height: 450px;
+    padding-right: 5px;
+    padding-top: 5px;
+}
 
 .HiddenCheckBox {
     height: 30px;
@@ -117,6 +143,11 @@
     Background-color: #0f0901b9;
     display: flex;
     flex-direction: column;
+}
+
+.Background2{
+    
+    Background-color: #888887b9;
 }
 
 .LobbyPlayer {
