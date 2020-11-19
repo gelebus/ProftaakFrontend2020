@@ -5,23 +5,33 @@
 </head>
 
 <body class="body">
-    <div class="container" style="padding-top: 12%;">
-          <div class="col-12-xs, text-center">
-                <h1 class="h2">Welcome player</h1>
-          </div>
-          <div class="col-12-xs, text-center" style="padding-top: 5%; padding-left: 40%;">
-            <a class="OrangeBtn" href="Game.html">Host Game</a>
-          </div>
-          <div class="row" style="padding-top: 5%;">
-                <div class="col-1-xs">
-                    <h3 class="h3">id</h3>
-                </div>
-                <div class="col-4-xs">
-                    <input  class="input" style="width: 100px;" maxlength="5">
-                </div>
-                <div class="col-4-xs" style="padding-left: 1%;">
-                    <a class="OrangeBtn" href="Game.html">Join Game</a>
-                </div>
-          </div>
-      </div>
+    <div class="container" style="padding-top: 12%; width: 50%;">
+        <div class="col-12-xs, text-center">
+            <h1 class="h2">Welcome player</h1>
+        </div>
+        <div class="background text-center" style="padding-bottom: 5%;">
+            <div class="col-1-xs">
+                <h3 class="h3">Nickname</h3>
+            </div>
+            <div class="col-5-xs">
+                <input  class="input" style="width: 150px;" maxlength="10" value="guest">
+            </div>
+            <div class="col-1-xs" style="padding-top: 1%;">
+                <h3 class="h3">(Only needed if you join a lobby)</h3>
+                <h3 class="h3">Lobby id</h3>
+            </div>
+            <div class="col-5-xs" >
+                <input  class="input" style="width: 100px;" maxlength="5">
+            </div>
+        </div>
+        <br>
+        <div class="background" style="padding-bottom: 5%;">
+            <div class="col-5-xs text-center" style="padding-top: 5%; margin:auto">
+                <a class="OrangeBtn" href="Game.html">Host Game</a>
+            </div>
+            <div class="col-5-xs" style="padding-top: 5%; margin: auto;">
+                <a class="OrangeBtn" href="Game.html">Join Game</a>
+            </div>
+        </div>
+    </div>
 </body>
