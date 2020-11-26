@@ -21,36 +21,42 @@
 </body>
 
 <script>
-    for (let row = 0; row < 11; row++) {
-        let lettersA2J = ['X','A','B','C','D','E','F','G','H','I','J'];
+    (() => {
+        CreateGrid('grid');
+    })();
 
-        let divRow = document.createElement('div');
-        divRow.classList.add('gridRow');
+    function CreateGrid(gridId){
+        for (let row = 0; row < 11; row++) {
+            let lettersA2J = ['X','A','B','C','D','E','F','G','H','I','J'];
 
-        for (let column = 0; column < 11; column++) {
-            let divColumn = document.createElement('div');
+            let divRow = document.createElement('div');
+            divRow.classList.add('gridRow');
 
-            if(row == 0){
-                divColumn.classList.add('gridIndicator');
-                divColumn.innerText = lettersA2J[column];
-            }
+            for (let column = 0; column < 11; column++) {
+                let divColumn = document.createElement('div');
 
-            if(column != 0){
-                if(row != 0){
-                    divColumn.classList.add('GameBtn');
-                }
-            }else{
-                if(row != 0){
+                if(row == 0){
                     divColumn.classList.add('gridIndicator');
-                    divColumn.innerText = row;
-                }else{
-                    divColumn.style.width = 40;
-                    divColumn.style.height = 40;
+                    divColumn.innerText = lettersA2J[column];
                 }
+
+                if(column != 0){
+                    if(row != 0){
+                        divColumn.classList.add('GameBtn');
+                    }
+                }else{
+                    if(row != 0){
+                        divColumn.classList.add('gridIndicator');
+                        divColumn.innerText = row;
+                    }else{
+                        divColumn.style.width = 40;
+                        divColumn.style.height = 40;
+                    }
+                }
+                divRow.appendChild(divColumn);
             }
-            divRow.appendChild(divColumn);
+            document.getElementById(gridId).appendChild(divRow);
         }
-        document.getElementById('grid').appendChild(divRow);
     }
 </script>
 
