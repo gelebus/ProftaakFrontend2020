@@ -1,18 +1,18 @@
 function HostGame(){
   let usernameInput = $('#usernameInput').val();
 
-  if(usernameInput !== ""){
-    $('#usernameInput').css({borderColor: ""});
+  if(usernameInput !== ''){
+    $('#usernameInput').css({borderColor: ''});
 
     $.ajax({
-      url: "http://localhost:3000/host-game",
+      url: 'http://localhost:3000/host-game',
       data: JSON.stringify({ username: usernameInput}),
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       success: (data) => {
-        console.log("Hosting a game.");
+        console.log('Hosting a game.');
         console.log(data.token);
 
         ConnectToSocket(data.token);
@@ -22,7 +22,7 @@ function HostGame(){
       }
     });
   } else {
-    $('#usernameInput').css({borderColor: "red"});
+    $('#usernameInput').css({borderColor: 'red'});
   }
 }
 
@@ -30,19 +30,19 @@ function JoinGame(){
   let usernameInput = $('#usernameInput').val();
   let gamecodeInput = $('#gamecodeInput').val();
 
-  if(usernameInput !== "" && gamecodeInput !== ""){
-    $('#usernameInput').css({borderColor: ""});
-    $('#gamecodeInput').css({borderColor: ""});
+  if(usernameInput !== '' && gamecodeInput !== ''){
+    $('#usernameInput').css({borderColor: ''});
+    $('#gamecodeInput').css({borderColor: ''});
 
     $.ajax({
-      url: "http://localhost:3000/join-game",
+      url: 'http://localhost:3000/join-game',
       data: JSON.stringify({ username: usernameInput, game_code: gamecodeInput }),
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       success: (data) => {
-        console.log("Joining a game.");
+        console.log('Joining a game.');
         console.log(data);
 
         ConnectToSocket(data.token);
@@ -52,11 +52,23 @@ function JoinGame(){
       }
     });
   } else {
-    if(usernameInput === ""){
-      $('#usernameInput').css({borderColor: "red"});
+    if(usernameInput === ''){
+      $('#usernameInput').css({borderColor: 'red'});
     }
-    if(gamecodeInput === ""){
-      $('#gamecodeInput').css({borderColor: "red"});
+    if(gamecodeInput === ''){
+      $('#gamecodeInput').css({borderColor: 'red'});
     }
   }
 }
+
+$('#PlayerReady').on('click', () => {
+  if(!$('input.Active').prop('checked')){
+    alert('ready');
+    $('input.Active').prop('checked', true);
+    PlayerReady(true);
+  } else {
+    alert('not ready');
+    $('input.Active').prop('checked', false);
+    PlayerReady(false);
+  }
+});
