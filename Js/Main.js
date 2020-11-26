@@ -5,7 +5,7 @@ function HostGame(){
     $('#usernameInput').css({borderColor: ''});
 
     $.ajax({
-      url: 'http://localhost:3000/host-game',
+      url: 'http://145.220.75.122/host-game',
       data: JSON.stringify({ username: usernameInput}),
       method: 'POST',
       headers: {
@@ -35,7 +35,7 @@ function JoinGame(){
     $('#gamecodeInput').css({borderColor: ''});
 
     $.ajax({
-      url: 'http://localhost:3000/join-game',
+      url: 'http://145.220.75.122/join-game',
       data: JSON.stringify({ username: usernameInput, game_code: gamecodeInput }),
       method: 'POST',
       headers: {
@@ -71,17 +71,22 @@ $('#PlayerReady').on('click', () => {
 
 
 
-function StartTimer(time){
+function StartTimer(){
+  let time = 3;
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
 
   Timer = setInterval(function(){
     if(time == 0){
       clearInterval(Timer);
-      document.getElementsByClassName('CountDown')[0].innerText = 'Start Game!';
       LoadPlaceBoatScreen();
     }
+    
     time -= 1;
-    document.getElementById('CountDown').innerText = time;
+    if(time == 0){
+      document.getElementsByClassName('CountDown')[0].innerText = 'Start Game!';
+    }else{
+      document.getElementById('CountDown').innerText = time;
+    }
   }, 1000);
 }
 

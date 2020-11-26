@@ -1,4 +1,4 @@
-const socket = io('ws://localhost:3000');
+const socket = io('ws://145.220.75.122');
 
 function ConnectToSocket(token) {
   socket.emit('token', token);
@@ -43,8 +43,7 @@ socket.on('player_ready', response => {
 });
 
 socket.on('game_starting', response => { 
-  let time = response.start_at - Math.floor(Date.now() / 1000);
-  StartTimer(time);
+  StartTimer();
 });
 
 socket.on('cancel_game_start', response => { 
