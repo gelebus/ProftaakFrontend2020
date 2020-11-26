@@ -68,3 +68,26 @@ $('#PlayerReady').on('click', () => {
     PlayerReady(false);
   }
 });
+
+
+
+function StartTimer(time){
+  document.getElementsByClassName('CountDown')[0].style.display = 'block';
+
+  Timer = setInterval(function(){
+    if(time == 0){
+      clearInterval(Timer);
+      document.getElementsByClassName('CountDown')[0].innerText = 'Start Game!';
+      LoadPlaceBoatScreen();
+    }
+    time -= 1;
+    document.getElementById('CountDown').innerText = time;
+  }, 1000);
+}
+
+function StopTimer(){
+  document.getElementsByClassName('CountDown')[0].style.display = 'none';
+  document.getElementById('CountDown').innerText = '3';
+  clearInterval(Timer);
+}
+

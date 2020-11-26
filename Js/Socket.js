@@ -41,3 +41,18 @@ function PlayerReady(data){
 socket.on('player_ready', response => {
   $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
 });
+
+socket.on('game_starting', response => { 
+  let time = response.start_at - Math.floor(Date.now() / 1000);
+  StartTimer(time);
+});
+
+socket.on('cancel_game_start', response => { 
+  StopTimer();
+});
+
+function LoadPlaceBoatScreen(){
+  $('body').load('PlaceBoats.html', () => {
+    
+  });
+}
