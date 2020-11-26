@@ -1,0 +1,11 @@
+.scrollbar {
+  max-height: 495px;
+  min-height: 495px;
+  overflow-y: scroll;
+}
+
+.ul {
+  list-style: decimal;
+  margin-left: 0px;
+  width: 95%;
+}

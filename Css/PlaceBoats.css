@@ -1,0 +1,102 @@
+.container {
+  width: 95%;
+  max-width: 1250px;
+}
+
+.AvailableShips {
+  border: #fe9a00 2px solid;
+  color: #fe9a00;
+  font-size: 30px;
+  text-align: center;
+}
+
+.AvailableShips th {
+  border-bottom: #fe9a00 2px solid;
+  text-align: center;
+  width: 250px;
+}
+
+.AvailableShips th:first-child,
+.AvailableShips th:last-child {
+  width: 150px;
+}
+
+.AvailableShips tr td {
+  padding: 10px 0;
+}
+
+.AvailableShip:hover {
+  Background-color: rgba(168, 168, 168, 0.582);
+  cursor: pointer;
+}
+
+.SetupPhaseContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.FlexRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.GridIndicator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  color: #fe9a00;
+  font-size: 20px;
+  height: 40;
+  width: 40;
+}
+
+.RotateButtonSpace {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  margin: 20px 10px;
+}
+
+@media (max-width: 1200px) {
+  .SetupPhaseContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+}

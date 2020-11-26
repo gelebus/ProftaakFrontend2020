@@ -1,64 +1,50 @@
 function HostGame(){
-  let usernameInput = $('#usernameInput').val();
+  let username = $('#usernameInput').val();
+  let game_code = $('#gamecodeInput').val();
 
-  if(usernameInput !== ''){
+  if(username !== ''){
     $('#usernameInput').css({borderColor: ''});
-
-    $.ajax({
-      url: 'http://145.220.75.122/host-game',
-      data: JSON.stringify({ username: usernameInput}),
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: (data) => {
-        console.log('Hosting a game.');
-        console.log(data.token);
-
-        ConnectToSocket(data.token);
-      },
-      error: (errMsg) => {
-        console.log(errMsg);
-      }
-    });
+    GetToken(username, game_code);
   } else {
     $('#usernameInput').css({borderColor: 'red'});
   }
 }
 
 function JoinGame(){
-  let usernameInput = $('#usernameInput').val();
-  let gamecodeInput = $('#gamecodeInput').val();
+  let username = $('#usernameInput').val();
+  let game_code = $('#gamecodeInput').val();
 
-  if(usernameInput !== '' && gamecodeInput !== ''){
+  if(username !== '' && game_code !== ''){
     $('#usernameInput').css({borderColor: ''});
     $('#gamecodeInput').css({borderColor: ''});
 
-    $.ajax({
-      url: 'http://145.220.75.122/join-game',
-      data: JSON.stringify({ username: usernameInput, game_code: gamecodeInput }),
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: (data) => {
-        console.log('Joining a game.');
-        console.log(data);
-
-        ConnectToSocket(data.token);
-      },
-      error: (errMsg) => {
-        console.log(errMsg);
-      }
-    });
+    GetToken(username, game_code);
   } else {
-    if(usernameInput === ''){
+    if(username === ''){
       $('#usernameInput').css({borderColor: 'red'});
     }
-    if(gamecodeInput === ''){
+    if(game_code === ''){
       $('#gamecodeInput').css({borderColor: 'red'});
     }
   }
+}
+
+function GetToken(username, game_code){
+  $.ajax({
+    url: `http://145.220.75.122/${game_code ? 'join-game' : 'host-game'}`,
+    data: JSON.stringify({ username, game_code }),
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    success: (data) => {
+      console.log(`${game_code ? 'join-game' : 'host-game'}`);
+      ConnectToSocket(data.token);
+    },
+    error: (errMsg) => {
+      console.log(errMsg);
+    }
+  });
 }
 
 $('#PlayerReady').on('click', () => {
@@ -68,8 +54,6 @@ $('#PlayerReady').on('click', () => {
     PlayerReady(false);
   }
 });
-
-
 
 function StartTimer(){
   let time = 3;
@@ -94,5 +78,39 @@ function StopTimer(){
   document.getElementsByClassName('CountDown')[0].style.display = 'none';
   document.getElementById('CountDown').innerText = '3';
   clearInterval(Timer);
+}
+
+function CreateGrid(gridId){
+  for (let row = 0; row < 11; row++) {
+    let lettersA2J = ['X','A','B','C','D','E','F','G','H','I','J'];
+
+    let divRow = document.createElement('div');
+    divRow.classList.add('FlexRow');
+
+    for (let column = 0; column < 11; column++) {
+      let divColumn = document.createElement('div');
+
+      if(row == 0){
+        divColumn.classList.add('GridIndicator');
+        divColumn.innerText = lettersA2J[column];
+      }
+
+      if(column != 0){
+        if(row != 0){
+          divColumn.classList.add('GameBtn');
+        }
+      }else{
+        if(row != 0){
+          divColumn.classList.add('GridIndicator');
+          divColumn.innerText = row;
+        }else{
+          divColumn.style.width = 40;
+          divColumn.style.height = 40;
+        }
+      }
+      divRow.appendChild(divColumn);
+    }
+    document.getElementById(gridId).appendChild(divRow);
+  }
 }
 

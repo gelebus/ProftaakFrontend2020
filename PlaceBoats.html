@@ -1,63 +1,61 @@
 <head>
-    <title>Battleships - Menu</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/PlaceBoats.css">
 </head>
 
 <body class="body">
-    <div class="container">
+    <div class="container" style="padding-top: 5%;">
+        <h1 class="h1">Setup Phase</h1>
         <div class="background">
-            <h2 class="h2" id="PlayerName">Guest</h2>
-            <div>
-                <div id="grid" style="border: #fe9a00 2px solid; width: fit-content;"></div>
-                <div id="availableShips">
-                    <div id="">
-                        
-                    </div>
+            <div class="SetupPhaseContainer" style="margin: 20px; margin-top: 0;">
+                <div>
+                    <h2 class="h2" id="PlayerName">Guest</h2>
+                    <div id="Grid" style="border: #fe9a00 2px solid; width: fit-content;"></div>
+                </div>
+                <div class="RotateButtonSpace">
+                    <button class="OrangeBtn" style="padding:5px;width:150px;">Rotate</button>
+                </div>
+                <div>
+                    <h2 class="h2">Available Ships</h2>
+                    <table class="AvailableShips">
+                        <tr>
+                            <th>Amount</th>
+                            <th>Shiptype</th>
+                            <th>Length</th>
+                        </tr>
+                        <tr class="AvailableShip" id="AircraftCarrier">
+                            <td><span>1</span>/1</td>
+                            <td>Aircraft Carrier</td>
+                            <td>6</td>
+                        </tr>
+                        <tr class="AvailableShip" id="BattleShip">
+                            <td><span>2</span>/2</td>
+                            <td>Battle Ship</td>
+                            <td>4</td>
+                        </tr>
+                        <tr class="AvailableShip" id="Submarine">
+                            <td><span>3</span>/3</td>
+                            <td>Submarine</td>
+                            <td>3</td>
+                        </tr>
+                        <tr class="AvailableShip" id="PatrolShip">
+                            <td><span>4</span>/4</td>
+                            <td>Patrol Ship</td>
+                            <td>2</td>
+                        </tr>
+                    </table>
+                    <button class="OrangeBtn" style="margin: 0 auto;margin-top: 5%;" id="PlayerReady">Ready</button>
                 </div>
             </div>
         </div>
     </div>
 </body>
 
+<script src="Js/Main.js"></script>
+
 <script>
     (() => {
-        CreateGrid('grid');
+        CreateGrid('Grid');
     })();
-
-    function CreateGrid(gridId){
-        for (let row = 0; row < 11; row++) {
-            let lettersA2J = ['X','A','B','C','D','E','F','G','H','I','J'];
-
-            let divRow = document.createElement('div');
-            divRow.classList.add('gridRow');
-
-            for (let column = 0; column < 11; column++) {
-                let divColumn = document.createElement('div');
-
-                if(row == 0){
-                    divColumn.classList.add('gridIndicator');
-                    divColumn.innerText = lettersA2J[column];
-                }
-
-                if(column != 0){
-                    if(row != 0){
-                        divColumn.classList.add('GameBtn');
-                    }
-                }else{
-                    if(row != 0){
-                        divColumn.classList.add('gridIndicator');
-                        divColumn.innerText = row;
-                    }else{
-                        divColumn.style.width = 40;
-                        divColumn.style.height = 40;
-                    }
-                }
-                divRow.appendChild(divColumn);
-            }
-            document.getElementById(gridId).appendChild(divRow);
-        }
-    }
 </script>
-
-<!-- <script src="Js/Main.js"></script> -->

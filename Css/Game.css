@@ -1,0 +1,84 @@
+.container {
+  width: 90%;
+  padding-top: 1%;
+}
+
+.LobbyPlayer {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.PlayerNameContainer {
+  padding-bottom: 2%;
+}
+
+.CheckBoxContainer {
+  margin: auto 0;
+  height: 30px;
+  padding-left: 1%;
+}
+
+.HiddenCheckBox {
+  height: 30px;
+  width: 30px;
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.HiddenCheckBox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  background-color: rgba(63, 63, 63, 0.397);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.HiddenCheckBox input:checked~.checkmark:after {
+  display: block;
+}
+
+.HiddenCheckBox .checkmark:after {
+  left: 11px;
+  top: 6px;
+  width: 8px;
+  height: 13px;
+  border: solid orange;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.CountDown {
+  display: none;
+  color: #fe9a00;
+  font-size: 25px;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 5px;
+}
