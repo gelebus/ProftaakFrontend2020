@@ -63,12 +63,8 @@ function JoinGame(){
 
 $('#PlayerReady').on('click', () => {
   if(!$('input.Active').prop('checked')){
-    alert('ready');
-    $('input.Active').prop('checked', true);
     PlayerReady(true);
   } else {
-    alert('not ready');
-    $('input.Active').prop('checked', false);
     PlayerReady(false);
   }
 });

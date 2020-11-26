@@ -15,6 +15,7 @@ socket.on('player_joined', response => {
 
 socket.on('player_disconnected', response => {
   $(`#Player${response.index + 1}`).text(`Player${response.index + 1}`);
+  $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', false);
 });
 
 function StartGame(data){
@@ -28,15 +29,15 @@ function StartGame(data){
 
     for (let index = 0; index < data.players.length; index++) {
       $(`#Player${index + 1}`).text(data.players[index].name);
+      $(`#CheckBoxPlayer${index + 1}`).prop('checked', data.players[index].ready);
     }
   });
 }
 
 function PlayerReady(data){
-  socket.emit('ready', data);
+  socket.emit('ready', {ready: data});
 }
 
 socket.on('player_ready', response => {
-  console.log(response);
-  //$(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
+  $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
 });
