@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
 }
 
 .content {
@@ -41,6 +41,10 @@
   width: 40;
 }
 
+.container-rotate .OrangeBtn {
+  padding: 10px;
+}
+
 .container-availableships .scrollbar-x {
   width: 100%;
   max-width: 525px;
@@ -74,7 +78,11 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 1075px) {
+@media only screen and (max-width: 1300px) {
+  .container {
+    max-width: 800px;
+  }
+
   .h1 {
     text-align: center;
   }
