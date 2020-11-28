@@ -43,10 +43,8 @@ socket.on('player_ready', response => {
   $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
 });
 
-socket.on('game_starting', response => { 
-  console.log(response);
-  console.log(response.start_at);
-  StartTimer(response);
+socket.on('game_starting', response => {
+  StartTimer();
 });
 
 socket.on('cancel_game_start', response => { 
@@ -54,7 +52,7 @@ socket.on('cancel_game_start', response => {
 });
 
 function LoadPlaceBoatScreen(){
-  let PlayerName = $('span.Active').val();
+  let PlayerName = $('span.Active').text();
   $('body').load('PlaceBoats.html', () => {
     $('#PlayerName').text(PlayerName);
   });

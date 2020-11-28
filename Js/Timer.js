@@ -1,12 +1,8 @@
-function StartTimer(timertje){
+function StartTimer(){
   let time = 3;
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
 
   Timer = setInterval(function(){
-    
-    console.log(time);
-    console.log(timertje);
-
     if(time == 0){
       clearInterval(Timer);
       LoadPlaceBoatScreen();
@@ -16,7 +12,7 @@ function StartTimer(timertje){
 
     if(time == 0){
       document.getElementsByClassName('CountDown')[0].innerText = 'Start Game!';
-    }else{
+    }else if(time > 0){
       document.getElementById('CountDown').innerText = time;
     }
   }, 1000);
