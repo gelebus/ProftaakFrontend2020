@@ -26,6 +26,7 @@ function StartGame(data){
     $('span#LobbyId').text(data.game_code);
 
     $(`#CheckBoxPlayer${data.self_index + 1}`).addClass('Active');
+    $(`#Player${data.self_index + 1}`).addClass('Active');
 
     for (let index = 0; index < data.players.length; index++) {
       $(`#Player${index + 1}`).text(data.players[index].name);
@@ -43,7 +44,9 @@ socket.on('player_ready', response => {
 });
 
 socket.on('game_starting', response => { 
-  StartTimer();
+  console.log(response);
+  console.log(response.start_at);
+  StartTimer(response);
 });
 
 socket.on('cancel_game_start', response => { 
@@ -51,7 +54,8 @@ socket.on('cancel_game_start', response => {
 });
 
 function LoadPlaceBoatScreen(){
+  let PlayerName = $('span.Active').val();
   $('body').load('PlaceBoats.html', () => {
-    
+    $('#PlayerName').text(PlayerName);
   });
 }
