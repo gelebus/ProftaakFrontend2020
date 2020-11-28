@@ -13,3 +13,9 @@ ul li {
 .container-btn {
   margin-top: 30px;
 }
+
+@media only screen and (max-width: 576px) {
+  .content {
+    margin-top: 0;
+  }
+}
