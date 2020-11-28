@@ -1,37 +1,40 @@
 <head>
     <title>Battleships - Menu</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Css/style.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/MainMenu.css">
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 
-<body class="body">
-    <div class="container" style="padding-top: 5%; width: 50%;">
-        <div class="col-12-xs, text-center">
-            <h1 class="h2">Welcome player</h1>
-        </div>
-        <div class="background text-center" style="padding-bottom: 5%;">
-            <div class="col-1-xs">
-                <h3 class="h3">Nickname</h3>
-            </div>
-            <div class="col-5-xs">
-                <input id="usernameInput" class="input" style="width: 150px;" maxlength="10" value="John">
-            </div>
-            <div class="col-1-xs" style="padding-top: 1%;">
-                <h3 class="h3">(Only needed if you join a lobby)</h3>
-                <h3 class="h3">Lobby id</h3>
-            </div>
-            <div class="col-5-xs" >
-                <input id="gamecodeInput" class="input" style="width: 100px;" maxlength="5">
-            </div>
-        </div>
-        <br>
-        <div class="background" style="padding-bottom: 5%;">
-            <div class="col-5-xs text-center" style="padding-top: 5%; margin:auto">
+<body class="body container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 content background text-center">
+            <h1 class="h1 text-center">Welcome player</h1>
+
+            <hr />
+            
+            <h2 class="h2">Nickname</h3>
+            <input id="usernameInput" class="input text-center" maxlength="10" value="John">
+
+            <hr />
+
+            <h3 class="h3">(Only needed if you join a lobby)</h3>
+            <h2 class="h2">Lobby id</h3>
+
+            <input id="gamecodeInput" class="input text-center" maxlength="5">
+            
+            <hr />
+
+            <div class="row justify-content-around container-btn">
                 <a class="OrangeBtn" onclick="HostGame()">Host Game</a>
-            </div>
-            <div class="col-5-xs" style="padding-top: 5%; margin: auto;">
                 <a class="OrangeBtn" onclick="JoinGame()">Join Game</a>
             </div>
         </div>
