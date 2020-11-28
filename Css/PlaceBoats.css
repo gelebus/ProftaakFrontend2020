@@ -1,13 +1,49 @@
 .container {
-  width: 95%;
-  max-width: 1250px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.content {
+  margin-top: 0;
+}
+
+.container-player {
+  height: 500px;
+  width: 444px;
+}
+
+.player-grid {
+  border: #fe9a00 2px solid;
+  overflow-x: auto;
+}
+
+.player-grid>.row {
+  width: 440px;
+}
+
+.player-grid .row {
+  margin: 0;
+}
+
+.GridIndicator {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  color: #fe9a00;
+  font-size: 20px;
+  height: 40;
+  width: 40;
 }
 
 .AvailableShips {
-  border: #fe9a00 2px solid;
   color: #fe9a00;
   font-size: 30px;
   text-align: center;
+  min-width: 525px;
 }
 
 .AvailableShips th {
@@ -30,73 +66,28 @@
   cursor: pointer;
 }
 
-.SetupPhaseContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
+@media only screen and (max-width: 1075px) {
+  .h1 {
+    text-align: center;
+  }
 
-.FlexRow {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.GridIndicator {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  color: #fe9a00;
-  font-size: 20px;
-  height: 40;
-  width: 40;
-}
-
-.RotateButtonSpace {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  margin: 20px 10px;
-}
-
-@media (max-width: 1200px) {
-  .SetupPhaseContainer {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
+  .content {
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    align-content: center;
+  }
+
+  .container-player {
+    margin: auto;
+    margin-bottom: 25px;
+  }
+
+  .h2 {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .content {
+    align-content: end;
   }
 }
