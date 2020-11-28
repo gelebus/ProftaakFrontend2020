@@ -47,11 +47,15 @@ function GetToken(username, game_code){
   });
 }
 
-$('#PlayerReady').on('click', () => {
+function ReadyLobby(){
   if(!$('input.Active').prop('checked')){
     PlayerReady(true);
   } else {
     PlayerReady(false);
   }
-});
+}
+
+function ReadyShips(){
+  alert('Nope');
+}
 
