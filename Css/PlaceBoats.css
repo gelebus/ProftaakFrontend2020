@@ -70,7 +70,17 @@
 }
 
 .AvailableShips tr td {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+
   padding: 10px 0;
+}
+
+.AvailableShip.Active {
+  font-weight: bold;
 }
 
 .AvailableShip:hover {
