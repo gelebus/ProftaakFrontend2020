@@ -55,17 +55,22 @@ $('#PlayerReady').on('click', () => {
   }
 });
 
-function StartTimer(){
+function StartTimer(timertje){
   let time = 3;
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
 
   Timer = setInterval(function(){
+    
+    console.log(time);
+    console.log(timertje);
+
     if(time == 0){
       clearInterval(Timer);
       LoadPlaceBoatScreen();
     }
     
     time -= 1;
+
     if(time == 0){
       document.getElementsByClassName('CountDown')[0].innerText = 'Start Game!';
     }else{
@@ -85,13 +90,13 @@ function CreateGrid(gridId){
     let lettersA2J = ['X','A','B','C','D','E','F','G','H','I','J'];
 
     let divRow = document.createElement('div');
-    divRow.classList.add('FlexRow');
+    divRow.classList.add('row');
 
     for (let column = 0; column < 11; column++) {
       let divColumn = document.createElement('div');
 
       if(row == 0){
-        divColumn.classList.add('GridIndicator');
+        divColumn.classList.add('row','GridIndicator');
         divColumn.innerText = lettersA2J[column];
       }
 
@@ -100,8 +105,8 @@ function CreateGrid(gridId){
           divColumn.classList.add('GameBtn');
         }
       }else{
-        if(row != 0){
-          divColumn.classList.add('GridIndicator');
+        if(row != 0){    
+          divColumn.classList.add('row','GridIndicator');
           divColumn.innerText = row;
         }else{
           divColumn.style.width = 40;
