@@ -4,6 +4,16 @@
     height: 100%;
 }
 
+.content {
+    border-radius: 10px;
+    margin-top: 10%;
+    padding: 30px;
+}
+
+.container-btn {
+    margin: 20px;
+}
+
 .Flex {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -35,6 +45,7 @@
     color: white;
     cursor: pointer;
     font-size: 30px;
+    margin: 10px;
     width: 235px;
     max-width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -111,4 +122,11 @@
 
 .OrangeBtn:active {
     color: grey;
+}
+
+@media only screen and (max-width: 576px) {
+    .content {
+        border-radius: 0;
+        margin-top: 0;
+    }
 }
