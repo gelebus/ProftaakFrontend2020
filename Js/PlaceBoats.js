@@ -13,3 +13,11 @@ function SelectShip(e) {
     e.classList.add('Active');
   }
 }
+
+function PlaceShipHover(e){
+  console.log(e.id);
+}
+
+function PlaceShipClick(){
+  
+}

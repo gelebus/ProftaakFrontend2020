@@ -26,13 +26,6 @@
   margin: 0;
 }
 
-.grid-btn {
-  background-color: rgba(23, 23, 23, 0.397);
-  border: #fe9a00 2px solid;
-  height: 40;
-  width: 40;
-}
-
 .grid-indicator {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -51,6 +44,19 @@
 .grid-indicator.highlight {
   background-color: rgba(168, 168, 168, 0.582);
   font-weight: bold;
+}
+
+.grid-btn {
+  background-color: rgba(23, 23, 23, 0.397);
+  border: #fe9a00 2px solid;
+  height: 40;
+  width: 40;
+}
+
+.grid-btn.highlight {
+  background-color: rgba(168, 168, 168, 0.582);
+  border-color: rgba(23, 23, 23, 0.597);
+  cursor: pointer;
 }
 
 .container-rotate .OrangeBtn {
