@@ -29,7 +29,8 @@ function CreateDivColumn(gridID, rowNumber, columnNumber){
 
   if(columnNumber != 0){
     if(rowNumber != 0){
-      divColumn.addEventListener("mouseover", AddHighlight);
+      divColumn.addEventListener('click', PlaceShip);
+      divColumn.addEventListener('mouseover', AddHighlight);
       divColumn.classList.add('grid-btn');
       divColumn.id = `${gridID}_${rowNumber}_${lettersA2J[columnNumber]}`;
     }
@@ -48,7 +49,7 @@ function CreateDivColumn(gridID, rowNumber, columnNumber){
 }
 
 function CreateGridIndicator(divElement, id, indicator){
-  divElement.addEventListener("mouseover", RemoveHighlight);
+  divElement.addEventListener('mouseover', RemoveHighlight);
   divElement.classList.add('row','grid-indicator');
   divElement.id = id;
   divElement.innerText = indicator;

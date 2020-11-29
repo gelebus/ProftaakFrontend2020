@@ -18,9 +18,12 @@
                 <div class="player-grid" id="Grid" onmouseleave="RemoveHighlight()"></div>
             </div>
             <div class="row align-items-center justify-content-center container-rotate">
-                <label class="OrangeBtn">Rotate Ship
-                    <input id="CheckboxRotateShip" type="checkbox" hidden>
-                </label>
+                <div>
+                    <button class="OrangeBtn" onclick="ResetGrid()">Reset Grid</button>
+                    <label class="OrangeBtn">Rotate Ship
+                        <input id="CheckboxRotateShip" type="checkbox" hidden>
+                    </label>
+                </div>
             </div>
             <div class="container-availableships">
                 <h2 class="h2">Available Ships</h2>
@@ -60,6 +63,10 @@
         </div>
     </div>
 </body>
+
+<!-- development only -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- development only -->
 
 <script src="Js/Main.js"></script>
 <script src="Js/CreateGrid.js"></script>

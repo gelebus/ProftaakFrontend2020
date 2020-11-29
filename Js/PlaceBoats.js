@@ -14,10 +14,35 @@ function SelectShip(e) {
   }
 }
 
-function PlaceShipHover(e){
-  console.log(e.id);
+function PlaceShip(e){
+  let cell = e.target;
+  let selectedShip = document.getElementsByClassName('AvailableShip Active');
+  let isRotated = document.getElementById('CheckboxRotateShip').checked;
+  
+  if(selectedShip[0] != null){
+    if(isRotated){
+      if(DoesCellMeetRequirements(cell)){
+        console.log('Vertical');
+        console.log(cell);
+      }
+    }else{
+      if(DoesCellMeetRequirements(cell)){
+        console.log('Horizontal');
+        console.log(cell);
+      }
+    }
+  }
 }
 
-function PlaceShipClick(){
-  
+function DoesCellMeetRequirements(cell){
+  let isGridBtn = cell.classList.contains('grid-btn');
+  let isHighlighted = cell.classList.contains('highlight');
+  return (isGridBtn && isHighlighted);
+}
+
+function ResetGrid(){
+  let PlayerName = document.getElementById('PlayerName').innerText;
+  $('body').load('PlaceBoats.html', () => {
+    $('#PlayerName').text(PlayerName);
+  });
 }
