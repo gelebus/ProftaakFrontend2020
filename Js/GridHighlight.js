@@ -27,38 +27,58 @@ function HighlightIndicators(e){
 
 function HighlightCells(e){
   let cell = e;
-  let cellParent = cell.parentElement;
-  let cellParentChildren = cellParent.children;
+  let cellRow = cell.parentElement;
+  let rowCells = cellRow.children;
+  let gridRows = cellRow.parentElement.children;
 
   let selectedShip = document.getElementsByClassName('AvailableShip Active');
-  let isRotated = false;
+  let isRotated = document.getElementById('CheckboxRotateShip').checked;
+
   if(selectedShip[0] != null){
+    let shipLength = parseInt(selectedShip[0].children[2].innerText);
+    let cellNumber = GetCellNumber(cell, rowCells);
+
     if(isRotated){
-
+      HighlightCellsVertical(shipLength, cellNumber, cellRow, gridRows);
     }else{
-      let shipLength = parseInt(selectedShip[0].children[2].innerText);
-      let startCellShip = GetCellNumber(cell, cellParentChildren);
-      let endCellShip = startCellShip + shipLength;
-
-      console.log(shipLength);
-      console.log(startCellShip);
-      console.log(endCellShip);
-      console.log(cellParentChildren[startCellShip]);
-      console.log(cellParentChildren[endCellShip - 1]);
-
-      if(cellParentChildren[endCellShip - 1] != null){
-        for (let i = startCellShip; i < endCellShip; i++) {
-          cellParentChildren[i].classList.add('highlight');
-        }
-      }
+      HighlightCellsHorizontal(shipLength, cellNumber, rowCells);
     }
   }
 }
 
-function GetCellNumber(cell, cellParentChildren){
-  for (let i = 0; i < cellParentChildren.length; i++) {
-    if(cellParentChildren[i].id == cell.id){
+function GetRowNumber(cellRow, gridRows){
+  for (let i = 0; i < gridRows.length; i++) {
+    if(gridRows[i].children[0].id == cellRow.children[0].id){
       return i;
+    }
+  }
+}
+
+function GetCellNumber(cell, rowCells){
+  for (let i = 0; i < rowCells.length; i++) {
+    if(rowCells[i].id == cell.id){
+      return i;
+    }
+  }
+}
+
+function HighlightCellsVertical(shipLength, cellNumber, cellRow, gridRows){
+  let startRowShip = GetRowNumber(cellRow, gridRows);
+  let endRowShip = startRowShip + shipLength;
+
+  if(gridRows[endRowShip - 1] != null){
+    for (let i = startRowShip; i < endRowShip; i++) {
+      gridRows[i].children[cellNumber].classList.add('highlight');
+    }
+  }
+}
+
+function HighlightCellsHorizontal(shipLength, cellNumber, rowCells){
+  let endCellShip = cellNumber + shipLength;
+
+  if(rowCells[endCellShip - 1] != null){
+    for (let i = cellNumber; i < endCellShip; i++) {
+      rowCells[i].classList.add('highlight');
     }
   }
 }
