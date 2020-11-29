@@ -39,19 +39,6 @@
     text-decoration: none;
 }
 
-.GameBtn {
-    background-color: rgba(23, 23, 23, 0.397);
-    border: #fe9a00 2px solid;
-    cursor: pointer;
-    height: 40;
-    width: 40;
-}
-
-.GameBtn:hover {
-    Background-color: rgba(168, 168, 168, 0.582);
-    border-color: rgba(23, 23, 23, 0.597);
-}
-
 .Missed {
     background-color: cornflowerblue;
 }

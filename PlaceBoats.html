@@ -15,7 +15,7 @@
         <div class="row justify-content-between col-sm-12 content background">
             <div class="container-player">
                 <h2 class="h2" id="PlayerName">Guest</h2>
-                <div class="player-grid" id="Grid"></div>
+                <div class="player-grid" id="Grid" onmouseleave="RemoveHighlight()"></div>
             </div>
             <div class="row align-items-center justify-content-center container-rotate">
                 <button class="OrangeBtn">Rotate Ship</button>
@@ -32,7 +32,7 @@
                         <tr class="AvailableShip" id="AircraftCarrier" onclick="SelectShip(this)">
                             <td><span>1</span>/1</td>
                             <td>Aircraft Carrier</td>
-                            <td>6</td>
+                            <td>5</td>
                         </tr>
                         <tr class="AvailableShip" id="BattleShip" onclick="SelectShip(this)">
                             <td><span>2</span>/2</td>
@@ -41,7 +41,7 @@
                         </tr>
                         <tr class="AvailableShip" id="Submarine" onclick="SelectShip(this)">
                             <td><span>3</span>/3</td>
-                            <td>Submarine</td>
+                            <td>Destroyer</td>
                             <td>3</td>
                         </tr>
                         <tr class="AvailableShip" id="PatrolShip" onclick="SelectShip(this)">
@@ -61,6 +61,7 @@
 
 <script src="Js/Main.js"></script>
 <script src="Js/CreateGrid.js"></script>
+<script src="Js/GridIndicator.js"></script>
 <script src="Js/PlaceBoats.js"></script>
 
 <script>
