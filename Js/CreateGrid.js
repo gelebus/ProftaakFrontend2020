@@ -1,22 +1,22 @@
-function CreateGrid(gridID){
+function CreateGrid(gridID, gridType){
   for (let row = 0; row < 11; row++) {
-    let divRow = CreateDivRow(gridID, row);
+    let divRow = CreateDivRow(gridID, row, gridType);
     document.getElementById(gridID).appendChild(divRow);
   }
 }
 
-function CreateDivRow(gridID, rowNumber){
+function CreateDivRow(gridID, rowNumber, gridType){
   let divRow = document.createElement('div');
   divRow.classList.add('row');
 
   for (let column = 0; column < 11; column++) {
-    divRow.appendChild(CreateDivColumn(gridID, rowNumber, column));
+    divRow.appendChild(CreateDivColumn(gridID, rowNumber, column, gridType));
   }
 
   return divRow;
 }
 
-function CreateDivColumn(gridID, rowNumber, columnNumber){
+function CreateDivColumn(gridID, rowNumber, columnNumber, gridType){
   let lettersA2J = ['X','A','B','C','D','E','F','G','H','I','J'];
 
   let divColumn = document.createElement('div');
@@ -29,6 +29,7 @@ function CreateDivColumn(gridID, rowNumber, columnNumber){
 
   if(columnNumber != 0){
     if(rowNumber != 0){
+      divColumn.addEventListener('click', (gridType == 'PlaceShips' ? PlaceShip : AttackShip));
       divColumn.addEventListener('mouseover', AddHighlight);
       divColumn.classList.add('grid-btn');
       divColumn.id = `${gridID}_${rowNumber}_${lettersA2J[columnNumber]}`;
