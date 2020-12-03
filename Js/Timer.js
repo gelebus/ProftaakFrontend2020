@@ -1,11 +1,16 @@
-function StartTimer(){
+function StartTimer(data){
   let time = 3;
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
-
   Timer = setInterval(function(){
     if(time == 0){
       clearInterval(Timer);
-      LoadPlaceBoatScreen();
+      if(data == 1)
+      {
+        LoadActionFaseScreen();      ;
+      }
+      else{
+        LoadPlaceBoatScreen();
+      }
     }
     
     time -= 1;

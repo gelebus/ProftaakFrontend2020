@@ -64,7 +64,7 @@ socket.on('player_ready', response => {
 });
 
 socket.on('game_starting', response => {
-  StartTimer();
+  StartTimer(0);
 });
 
 socket.on('cancel_game_start', response => { 
@@ -83,6 +83,14 @@ function LoadPlaceBoatScreen(){
   });
 }
 
+function LoadActionFaseScreen(){
+  $('body').load('ActionFase.html', () => {
+    $('#PlayerName').text(PlayerName);
+    $('#PlayersReady #amount').text(PlayersAmount);
+  });
+}
+
+
 function ConfirmLayout(data){
   socket.emit('confirm_layout', data);
 }
@@ -96,5 +104,5 @@ function UnlockLayout(){
 }
 
 socket.on('action_phase_starting', response => {
-  alert("action phase start in: " + response.start_at)
+  StartTimer(1);
 });
