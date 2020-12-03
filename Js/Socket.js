@@ -57,3 +57,12 @@ function LoadPlaceBoatScreen(){
     $('#PlayerName').text(PlayerName);
   });
 }
+
+function ConfirmLayout(data){
+  socket.emit('confirm_layout', data);
+}
+
+socket.on('invalid_layout', response => {
+  alert('INVALID LAYOUT');
+});
+
