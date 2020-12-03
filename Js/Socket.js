@@ -40,7 +40,27 @@ function PlayerReady(data){
 }
 
 socket.on('player_ready', response => {
-  $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
+  if($(`#CheckBoxPlayer${response.index + 1}`).length > 0)
+  {
+    $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
+  }
+  else
+  {
+    $(`#ConfirmLayout${response.index + 1}`).prop('checked', response.ready);
+    let count = parseInt($(`#PlayersReady #count`).text());
+
+    if($(`#ConfirmLayout${response.index + 1}`).prop('checked'))
+    {
+      count++;
+    }
+    else{
+      count--;
+    }
+
+    $(`#PlayersReady #count`).text(count);
+    
+  }
+  
 });
 
 socket.on('game_starting', response => {
@@ -53,8 +73,13 @@ socket.on('cancel_game_start', response => {
 
 function LoadPlaceBoatScreen(){
   let PlayerName = $('span.Active').text();
+  let PlayersAmount = $('.lobby-player .Active').length;
+  let PlayerIndex = $('input.Active').prop('id').split('CheckBoxPlayer')[1];
+
   $('body').load('PlaceBoats.html', () => {
     $('#PlayerName').text(PlayerName);
+    $('#PlayersReady #amount').text(PlayersAmount);
+    $(`#ConfirmLayout${PlayerIndex}`).addClass('Active');
   });
 }
 
@@ -66,3 +91,6 @@ socket.on('invalid_layout', response => {
   alert('INVALID LAYOUT');
 });
 
+function UnlockLayout(){
+  socket.emit('unlock_layout');
+}
