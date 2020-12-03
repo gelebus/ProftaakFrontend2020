@@ -26,16 +26,15 @@ function HighlightIndicators(e){
 }
 
 function HighlightCells(e){
+  let cell = e;
+  let cellRow = cell.parentElement;
+  let rowCells = cellRow.children;
+  let gridRows = cellRow.parentElement.children;
+
   let selectedShip = document.getElementsByClassName('AvailableShip Active');
+  let isRotated = document.getElementById('CheckboxRotateShip').checked;
 
   if(selectedShip[0] != null){
-    let cell = e;
-    let cellRow = cell.parentElement;
-    let rowCells = cellRow.children;
-    let gridRows = cellRow.parentElement.children;
-    
-    let isRotated = document.getElementById('CheckboxRotateShip').checked;
-
     let shipLength = parseInt(selectedShip[0].children[2].innerText);
     let cellNumber = GetCellNumber(cell, rowCells);
 
