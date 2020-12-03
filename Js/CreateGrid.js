@@ -29,7 +29,6 @@ function CreateDivColumn(gridID, rowNumber, columnNumber){
 
   if(columnNumber != 0){
     if(rowNumber != 0){
-      divColumn.addEventListener('click', PlaceShip);
       divColumn.addEventListener('mouseover', AddHighlight);
       divColumn.classList.add('grid-btn');
       divColumn.id = `${gridID}_${rowNumber}_${lettersA2J[columnNumber]}`;

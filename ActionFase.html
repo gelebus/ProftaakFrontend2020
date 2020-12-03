@@ -4,6 +4,7 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
           crossorigin="anonymous">
     <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/Grid.css">
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
@@ -15,12 +16,10 @@
                 <div class="player-grid" id="Grid" onmouseleave="RemoveHighlight()"></div>
             </div>
             <div class="col-sm-6">
-                <div class="player-grid" id="Grid" onmouseleave="RemoveHighlight()"></div>
+                <div class="player-grid" id="Grid2" onmouseleave="RemoveHighlight()"></div>
             </div>
         </div>
-        
     </div>
-    
 </body>
 
 
@@ -31,5 +30,6 @@
 <script>
     (() => {
         CreateGrid('Grid');
+        CreateGrid('Grid2');
     })();
 </script>
