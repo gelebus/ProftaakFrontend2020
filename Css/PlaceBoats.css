@@ -13,52 +13,6 @@
   max-width: 444px;
 }
 
-.player-grid {
-  border: #fe9a00 2px solid;
-  overflow-x: auto;
-}
-
-.player-grid>.row {
-  width: 440px;
-}
-
-.player-grid .row {
-  margin: 0;
-}
-
-.grid-indicator {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  color: #fe9a00;
-  cursor: default;
-  font-size: 20px;
-  height: 40;
-  width: 40;
-}
-
-.grid-indicator.highlight {
-  background-color: rgba(168, 168, 168, 0.582);
-  font-weight: bold;
-}
-
-.grid-btn {
-  background-color: rgba(23, 23, 23, 0.397);
-  border: #fe9a00 2px solid;
-  height: 40;
-  width: 40;
-}
-
-.grid-btn.highlight {
-  background-color: rgba(168, 168, 168, 0.582);
-  border-color: rgba(23, 23, 23, 0.597);
-  cursor: pointer;
-}
-
 .container-rotate .OrangeBtn {
   padding: 10px;
 }
