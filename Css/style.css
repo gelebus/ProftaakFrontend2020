@@ -97,6 +97,7 @@
     color: grey;
 }
 
+
 @media only screen and (max-width: 576px) {
     .content {
         border-radius: 0;
