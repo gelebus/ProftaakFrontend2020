@@ -56,6 +56,19 @@ function ReadyLobby(){
 }
 
 function ReadyShips(){
-  alert('Nope');
+  //Test
+  ConfirmLayout([
+    { "x": 0, "y": 0, "type": 0, "horizontal": true },
+    { "x": 3, "y": 0, "type": 0, "horizontal": true },
+    { "x": 6, "y": 0, "type": 0, "horizontal": true },
+    { "x": 8, "y": 2, "type": 0, "horizontal": true },
+    { "x": 0, "y": 2, "type": 1, "horizontal": true },
+    { "x": 4, "y": 2, "type": 1, "horizontal": true },
+    { "x": 0, "y": 4, "type": 1, "horizontal": true },
+    { "x": 4, "y": 4, "type": 2, "horizontal": true },
+    { "x": 0, "y": 6, "type": 2, "horizontal": true },
+    { "x": 5, "y": 6, "type": 3, "horizontal": true }
+  ]
+  );
 }
 
