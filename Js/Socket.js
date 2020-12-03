@@ -94,3 +94,7 @@ socket.on('invalid_layout', response => {
 function UnlockLayout(){
   socket.emit('unlock_layout');
 }
+
+socket.on('action_phase_starting', response => {
+  alert("action phase start")
+});
