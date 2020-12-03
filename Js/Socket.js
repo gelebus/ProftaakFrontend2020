@@ -96,5 +96,5 @@ function UnlockLayout(){
 }
 
 socket.on('action_phase_starting', response => {
-  alert("action phase start")
+  alert("action phase start in: " + response.start_at)
 });
