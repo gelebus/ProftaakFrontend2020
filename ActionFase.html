@@ -16,7 +16,7 @@
         <div class="row justify-content-between" style="margin:0 5%;">
             <div class="container-player">
                 <h2 class="h2" id="PlayerName">Guest</h2>
-                <div class="player-grid" id="Grid" onmouseleave="RemoveHighlight()"></div>
+                <div class="player-grid" id="PlayerGrid" onmouseleave="RemoveHighlight()"></div>
             </div>
             <div class="dropdown" style="margin-top: 5%;">
                 <button onclick="DropdownSelect()" class="dropbtn">Dropdown</button>
@@ -28,7 +28,7 @@
             </div> 
             <div class="container-player">
                 <h2 class="h2" id="PlayerName">Guest</h2>
-                <div class="player-grid" id="Grid2" onmouseleave="RemoveHighlight()"></div>
+                <div class="player-grid" id="EnemyGrid" onmouseleave="RemoveHighlight()"></div>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -41,11 +41,12 @@
 <script src="Js/Main.js"></script>
 <script src="Js/CreateGrid.js"></script>
 <script src="Js/GridHighlight.js"></script>
+<script src="Js/ActionFase.js"></script>
 <script src="Js/DropdownBox.js"></script>
 
 <script>
     (() => {
-        CreateGrid('Grid');
-        CreateGrid('Grid2');
+        CreateGrid('PlayerGrid');
+        CreateGrid('EnemyGrid');
     })();
 </script>
