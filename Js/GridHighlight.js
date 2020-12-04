@@ -6,8 +6,7 @@ function RemoveHighlight(){
 
   let gridCells = document.getElementsByClassName('grid-btn');
   for (let i = 0; i < gridCells.length; i++) {
-    gridCells[i].classList.remove('success-highlight');
-    gridCells[i].classList.remove('error-highlight');
+    gridCells[i].classList.remove('success-highlight','error-highlight','orientation-row','orientation-col');
   }
 }
 
@@ -66,7 +65,7 @@ function HighlightCells(e){
       }
 
       if(shipInGrid && IsShipNear(gridName, cellRowNumber, cellColNumber, startCellShip, endCellShip, isRotated)){
-        cell.classList.add('success-highlight');
+        cell.classList.add('success-highlight', isRotated != true ? 'orientation-row' : 'orientation-col');
       }else{
         if(cell != null){
           cell.classList.add('error-highlight');

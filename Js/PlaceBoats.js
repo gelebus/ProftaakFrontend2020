@@ -18,16 +18,18 @@ function SelectShip(e) {
 
 function PlaceShip(e){
   let selectedShip = document.getElementsByClassName('AvailableShip Active')[0];
-  let selectedShipID = selectedShip.id;
   
   if(selectedShip != null){
     let shipAmountElement = selectedShip.children[0].children[0];
     let shipAmount = parseInt(shipAmountElement.innerText);
-    if(shipAmount > 0){
-      let cells = GetHighlightedCells();
-  
+    let cells = GetHighlightedCells();
+
+    if(shipAmount > 0 && cells.length > 0){
       for (let i = 0; i < cells.length; i++) {
-        cells[i].classList.add('ship-placed',`${selectedShipID}-${shipAmount}`);
+        if(cells[i].classList.contains('orientation-row')){
+          cells[i].classList.add('horizontal');
+        }
+        cells[i].classList.add('ship-placed',`${selectedShip.id}-${shipAmount}`);
       }
 
       shipAmount--;
@@ -54,8 +56,13 @@ function GetHighlightedCells(){
 }
 
 function ResetGrid(){
-  let PlayerName = document.getElementById('PlayerName').innerText;
+  let PlayerName = $('#PlayerName').text();
+  let playerReadyCount = $('#PlayersReady #count').text();
+  let playerAmount = $('#PlayersReady #amount').text();
+
   $('body').load('PlaceBoats.html', () => {
     $('#PlayerName').text(PlayerName);
+    $('#PlayersReady #count').text(playerReadyCount);
+    $('#PlayersReady #amount').text(playerAmount);
   });
 }

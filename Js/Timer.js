@@ -6,9 +6,8 @@ function StartTimer(data){
       clearInterval(Timer);
       if(data == 1)
       {
-        LoadActionFaseScreen();      ;
-      }
-      else{
+        LoadActionFaseScreen();
+      }else{
         LoadPlaceBoatScreen();
       }
     }

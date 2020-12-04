@@ -40,25 +40,19 @@ function PlayerReady(data){
 }
 
 socket.on('player_ready', response => {
-  if($(`#CheckBoxPlayer${response.index + 1}`).length > 0)
-  {
+  if($(`#CheckBoxPlayer${response.index + 1}`).length > 0){
     $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
-  }
-  else
-  {
+  }else{
     $(`#ConfirmLayout${response.index + 1}`).prop('checked', response.ready);
     let count = parseInt($(`#PlayersReady #count`).text());
 
-    if($(`#ConfirmLayout${response.index + 1}`).prop('checked'))
-    {
+    if($(`#ConfirmLayout${response.index + 1}`).prop('checked')){
       count++;
-    }
-    else{
+    }else{
       count--;
     }
 
     $(`#PlayersReady #count`).text(count);
-    
   }
   
 });
@@ -84,9 +78,9 @@ function LoadPlaceBoatScreen(){
 }
 
 function LoadActionFaseScreen(){
+  let PlayerName = $('#PlayerName').text();
   $('body').load('ActionFase.html', () => {
     $('#PlayerName').text(PlayerName);
-    $('#PlayersReady #amount').text(PlayersAmount);
   });
 }
 

@@ -56,23 +56,39 @@ function ReadyLobby(){
 }
 
 function ReadyShips(){
-  if($('input.Active').prop('checked') == false){
-    ConfirmLayout([
-      { "x": 0, "y": 0, "type": 0, "horizontal": true },
-      { "x": 3, "y": 0, "type": 0, "horizontal": true },
-      { "x": 6, "y": 0, "type": 0, "horizontal": true },
-      { "x": 8, "y": 2, "type": 0, "horizontal": true },
-      { "x": 0, "y": 2, "type": 1, "horizontal": true },
-      { "x": 4, "y": 2, "type": 1, "horizontal": true },
-      { "x": 0, "y": 4, "type": 1, "horizontal": true },
-      { "x": 4, "y": 4, "type": 2, "horizontal": true },
-      { "x": 0, "y": 6, "type": 2, "horizontal": true },
-      { "x": 5, "y": 6, "type": 3, "horizontal": true }
-    ]
-    );
+  if(!$('input.Active').prop('checked')){
+    ConfirmLayout(GetShips());
   }
   else{
     UnlockLayout();
   }
 }
 
+function GetShips(){
+  let shipTypes = ['PatrolShip','Submarine','BattleShip','AircraftCarrier'];
+  let shipAmount = [4,3,2,1];
+
+  let output = [];
+
+  for (let i = 0; i < shipTypes.length; i++) {
+    GetShipInfo(output, i, shipTypes[i], shipAmount[i]);
+  }
+
+  return output;
+}
+
+function GetShipInfo(output, shipCount, shipType, shipAmount){
+  for (let i = 1; i < shipAmount + 1; i++) {
+    let shipClass = `${shipType}-${i}`;
+    let ship = document.getElementsByClassName(shipClass);
+
+    if(ship.length > 0){
+      let x = ship[0].id.split('_')[2];
+      let y = ship[0].id.split('_')[1];
+      let type = shipCount;
+      let horizontal = ship[0].classList.contains('horizontal');
+
+      output.push({x: (parseInt(x) - 1), y: (parseInt(y) - 1), type, horizontal});
+    }
+  }
+}
