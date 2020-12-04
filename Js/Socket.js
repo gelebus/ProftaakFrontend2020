@@ -5,7 +5,6 @@ function ConnectToSocket(token) {
 }
 
 socket.on('game_info', response =>{
-  console.log(response);
   StartGame(response);
 });
 
@@ -67,13 +66,24 @@ socket.on('cancel_game_start', response => {
 
 function LoadPlaceBoatScreen(){
   let PlayerName = $('span.Active').text();
-  let PlayersAmount = $('.lobby-player .Active').length;
+  let PlayersAmount = $('.player .Active').length;
   let PlayerIndex = $('input.Active').prop('id').split('CheckBoxPlayer')[1];
+
+  let PlayerNames = [];
+
+  $('.player').each((i,e)=>{
+    PlayerNames.push({playerID: i, playerName: e.innerText});
+  });
 
   $('body').load('PlaceBoats.html', () => {
     $('#PlayerName').text(PlayerName);
     $('#PlayersReady #amount').text(PlayersAmount);
     $(`#ConfirmLayout${PlayerIndex}`).addClass('Active');
+
+    $('.player').each((i,e)=>{
+      $(e).attr('player-id', PlayerNames[i].playerID);
+      $(e).attr('player-name', PlayerNames[i].playerName);
+    });
   });
 }
 

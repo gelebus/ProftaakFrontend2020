@@ -26,10 +26,11 @@ function PlaceShip(e){
 
     if(shipAmount > 0 && cells.length > 0){
       for (let i = 0; i < cells.length; i++) {
+        cells[i].classList.add('ship-placed',`${selectedShip.id}-${shipAmount}`);
+
         if(cells[i].classList.contains('orientation-row')){
           cells[i].classList.add('horizontal');
         }
-        cells[i].classList.add('ship-placed',`${selectedShip.id}-${shipAmount}`);
       }
 
       shipAmount--;
@@ -38,6 +39,20 @@ function PlaceShip(e){
       if(shipAmount == 0){
         selectedShip.classList.remove('Active');
       }
+    }
+  }else{
+    let cell = e.target;
+
+    if(cell.classList.contains('error-highlight')){
+      let shipID = cell.classList[2].split('-')[0];
+      let shipAmountElement = document.getElementById(shipID).children[0].children[0];
+      let shipAmount = parseInt(shipAmountElement.innerText) + 1;
+
+      shipAmountElement.innerText = shipAmount;
+      
+      $('.error-highlight').each((i,e)=>{
+        e.classList.remove(e.classList[1],e.classList[2],e.classList[3],e.classList[4]);
+      });
     }
   }
 }
@@ -57,12 +72,26 @@ function GetHighlightedCells(){
 
 function ResetGrid(){
   let PlayerName = $('#PlayerName').text();
+  let PlayerID = $('.player.Active').prop('id');
   let playerReadyCount = $('#PlayersReady #count').text();
   let playerAmount = $('#PlayersReady #amount').text();
+
+
+  let PlayerNames = [];
+
+  $('.player').each((i,e)=>{
+    PlayerNames.push({playerID: $(e).attr('player-id'), playerName: $(e).attr('player-name')});
+  });
 
   $('body').load('PlaceBoats.html', () => {
     $('#PlayerName').text(PlayerName);
     $('#PlayersReady #count').text(playerReadyCount);
     $('#PlayersReady #amount').text(playerAmount);
+    $(`#${PlayerID}`).addClass('Active');
+
+    $('.player').each((i,e)=>{
+      $(e).attr('player-id', PlayerNames[i].playerID);
+      $(e).attr('player-name', PlayerNames[i].playerName);
+    });
   });
 }
