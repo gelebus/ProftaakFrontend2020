@@ -10,81 +10,47 @@ function SelectShip(e) {
   if(e.classList.contains('Active')){
     e.classList.remove('Active');
   }else{
-    e.classList.add('Active');
+    if(e.children[0].children[0].innerText != "0"){
+      e.classList.add('Active');
+    }
   }
 }
 
 function PlaceShip(e){
-  let selectedShip = document.getElementsByClassName('AvailableShip Active');
+  let selectedShip = document.getElementsByClassName('AvailableShip Active')[0];
+  let selectedShipID = selectedShip.id;
   
-  if(selectedShip[0] != null){
-    let cell = e.target;
-    let cellRow = cell.parentElement;
-    let rowCells = cellRow.children;
-    let gridRows = cellRow.parentElement.children;
-    
-    let isRotated = document.getElementById('CheckboxRotateShip').checked;
-
-    let shipLength = parseInt(selectedShip[0].children[2].innerText);
-    let cellNumber = GetCellNumber(cell, rowCells);
-
-    if(isRotated){
-      if(DoesCellMeetRequirements(cell)){
-        console.log('Vertical');
-        PlaceShipVertical(shipLength, cellNumber, cellRow, gridRows, cell.id);
+  if(selectedShip != null){
+    let shipAmountElement = selectedShip.children[0].children[0];
+    let shipAmount = parseInt(shipAmountElement.innerText);
+    if(shipAmount > 0){
+      let cells = GetHighlightedCells();
+  
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].classList.add('ship-placed',`${selectedShipID}-${shipAmount}`);
       }
-    }else{
-      if(DoesCellMeetRequirements(cell)){
-        console.log('Horizontal');
-        PlaceShipHorizontal(shipLength, cellNumber, rowCells, cell.id);
+
+      shipAmount--;
+      shipAmountElement.innerText = shipAmount;
+
+      if(shipAmount == 0){
+        selectedShip.classList.remove('Active');
       }
     }
   }
 }
 
-function DoesCellMeetRequirements(cell){
-  let isGridBtn = cell.classList.contains('grid-btn');
-  let isHighlighted = cell.classList.contains('highlight');
-  return (isGridBtn && isHighlighted);
-}
+function GetHighlightedCells(){
+  let gridCells = document.getElementsByClassName('grid-btn');
+  let highlightedCells = [];
 
-function GetRowNumber(cellRow, gridRows){
-  for (let i = 0; i < gridRows.length; i++) {
-    if(gridRows[i].children[0].id == cellRow.children[0].id){
-      return i;
+  for (let i = 0; i < gridCells.length; i++) {
+    if(gridCells[i].classList.contains('success-highlight')){
+      highlightedCells.push(gridCells[i]);
     }
   }
-}
 
-function GetCellNumber(cell, rowCells){
-  for (let i = 0; i < rowCells.length; i++) {
-    if(rowCells[i].id == cell.id){
-      return i;
-    }
-  }
-}
-
-function PlaceShipVertical(shipLength, cellNumber, cellRow, gridRows, cellID){
-  let startRowShip = GetRowNumber(cellRow, gridRows);
-  let endRowShip = startRowShip + shipLength;
-
-  if(gridRows[endRowShip - 1] != null){
-    for (let i = startRowShip; i < endRowShip; i++) {
-      gridRows[i].children[cellNumber].classList.add('ship-placed');
-      gridRows[i].children[cellNumber].id = cellID;
-    }
-  }
-}
-
-function PlaceShipHorizontal(shipLength, cellNumber, rowCells, cellID){
-  let endCellShip = cellNumber + shipLength;
-
-  if(rowCells[endCellShip - 1] != null){
-    for (let i = cellNumber; i < endCellShip; i++) {
-      rowCells[i].classList.add('ship-placed');
-      rowCells[i].id = cellID;
-    }
-  }
+  return highlightedCells;
 }
 
 function ResetGrid(){

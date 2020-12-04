@@ -44,9 +44,15 @@
   width: 40;
 }
 
-.grid-btn.highlight {
+.grid-btn.success-highlight {
   background-color: rgba(168, 168, 168, 0.582);
   border-color: rgba(23, 23, 23, 0.597);
+  cursor: pointer;
+}
+
+.grid-btn.error-highlight {
+  background-color: rgba(168, 168, 168, 0.582);
+  border-color: #D50000;
   cursor: pointer;
 }
 

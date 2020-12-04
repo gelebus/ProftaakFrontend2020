@@ -6,7 +6,8 @@ function RemoveHighlight(){
 
   let gridCells = document.getElementsByClassName('grid-btn');
   for (let i = 0; i < gridCells.length; i++) {
-    gridCells[i].classList.remove('highlight');
+    gridCells[i].classList.remove('success-highlight');
+    gridCells[i].classList.remove('error-highlight');
   }
 }
 
@@ -26,60 +27,85 @@ function HighlightIndicators(e){
 }
 
 function HighlightCells(e){
-  let selectedShip = document.getElementsByClassName('AvailableShip Active');
+  let selectedShip = document.getElementsByClassName('AvailableShip Active')[0];
 
-  if(selectedShip[0] != null){
+  if(selectedShip != null){
+    let selectedShipLength = parseInt(selectedShip.children[2].innerText);
+
     let cell = e;
-    let cellRow = cell.parentElement;
-    let rowCells = cellRow.children;
-    let gridRows = cellRow.parentElement.children;
+    let gridName = cell.id.split('_')[0];
+    let cellRowNumber = parseInt(cell.id.split('_')[1]);
+    let cellColNumber = parseInt(cell.id.split('_')[2]);
     
     let isRotated = document.getElementById('CheckboxRotateShip').checked;
 
-    let shipLength = parseInt(selectedShip[0].children[2].innerText);
-    let cellNumber = GetCellNumber(cell, rowCells);
+    let startCellShip;
 
     if(isRotated){
-      HighlightCellsVertical(shipLength, cellNumber, cellRow, gridRows);
+      startCellShip = cellRowNumber;
     }else{
-      HighlightCellsHorizontal(shipLength, cellNumber, rowCells);
+      startCellShip = cellColNumber;
+    }
+    
+    let endCellShip = startCellShip + selectedShipLength;
+
+    let shipInGrid = true;
+    for (let i = endCellShip - 1; i >= startCellShip; i--) {
+      let cellID;
+      
+      if(isRotated){
+        cellID = `${gridName}_${i}_${cellColNumber}`;
+      }else{
+        cellID = `${gridName}_${cellRowNumber}_${i}`;
+      }
+
+      let cell = document.getElementById(cellID);
+
+      if(cell == null){
+        shipInGrid = false;
+      }
+
+      if(shipInGrid && IsShipNear(gridName, cellRowNumber, cellColNumber, startCellShip, endCellShip, isRotated)){
+        cell.classList.add('success-highlight');
+      }else{
+        if(cell != null){
+          cell.classList.add('error-highlight');
+        }
+      }
     }
   }
 }
 
-function GetRowNumber(cellRow, gridRows){
-  for (let i = 0; i < gridRows.length; i++) {
-    if(gridRows[i].children[0].id == cellRow.children[0].id){
-      return i;
+function IsShipNear(gridName, cellRowNumber, cellColNumber, startCellShip, endCellShip, isRotated){
+  let isAble = true;
+
+  for (let i = startCellShip - 1; i < endCellShip + 1; i++) {
+    let cellLeftID;
+    let cellCenterID;
+    let cellRightID;
+
+    if(isRotated){
+      cellLeftID = `${gridName}_${i}_${cellColNumber - 1}`;
+      cellCenterID = `${gridName}_${i}_${cellColNumber}`;
+      cellRightID = `${gridName}_${i}_${cellColNumber + 1}`;
+    }else{
+      cellLeftID = `${gridName}_${cellRowNumber - 1}_${i}`;
+      cellCenterID = `${gridName}_${cellRowNumber}_${i}`;
+      cellRightID = `${gridName}_${cellRowNumber + 1}_${i}`;
     }
+
+    isAble = CellIsUsed(isAble, cellLeftID);
+    isAble = CellIsUsed(isAble, cellCenterID);
+    isAble = CellIsUsed(isAble, cellRightID);
   }
+
+  return isAble;
 }
 
-function GetCellNumber(cell, rowCells){
-  for (let i = 0; i < rowCells.length; i++) {
-    if(rowCells[i].id == cell.id){
-      return i;
-    }
+function CellIsUsed(isAble, cellID){
+  let cell = document.getElementById(cellID);
+  if(cell != null && cell.classList.contains('ship-placed')){
+    return false;
   }
-}
-
-function HighlightCellsVertical(shipLength, cellNumber, cellRow, gridRows){
-  let startRowShip = GetRowNumber(cellRow, gridRows);
-  let endRowShip = startRowShip + shipLength;
-
-  if(gridRows[endRowShip - 1] != null){
-    for (let i = startRowShip; i < endRowShip; i++) {
-      gridRows[i].children[cellNumber].classList.add('highlight');
-    }
-  }
-}
-
-function HighlightCellsHorizontal(shipLength, cellNumber, rowCells){
-  let endCellShip = cellNumber + shipLength;
-
-  if(rowCells[endCellShip - 1] != null){
-    for (let i = cellNumber; i < endCellShip; i++) {
-      rowCells[i].classList.add('highlight');
-    }
-  }
+  return isAble;
 }

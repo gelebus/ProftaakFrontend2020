@@ -22,26 +22,19 @@ function CreateDivColumn(gridID, rowNumber, columnNumber, gridType){
   let divColumn = document.createElement('div');
 
   if(rowNumber == 0){
-    let id = `${gridID}_col_${lettersA2J[columnNumber]}`;
+    let id = `${gridID}_col_${columnNumber}`;
     let indicator = lettersA2J[columnNumber];
     divColumn = CreateGridIndicator(divColumn, id, indicator);
-  }
-
-  if(columnNumber != 0){
-    if(rowNumber != 0){
-      divColumn.addEventListener('click', (gridType == 'PlaceShips' ? PlaceShip : AttackShip));
-      divColumn.addEventListener('mouseover', AddHighlight);
-      divColumn.classList.add('grid-btn');
-      divColumn.id = `${gridID}_${rowNumber}_${lettersA2J[columnNumber]}`;
-    }
   }else{
-    if(rowNumber != 0){
+    if(columnNumber == 0){
       let id = `${gridID}_row_${rowNumber}`;
       let indicator = rowNumber;
       divColumn = CreateGridIndicator(divColumn, id, indicator);
     }else{
-      divColumn.style.width = 40;
-      divColumn.style.height = 40;
+      divColumn.addEventListener('click', (gridType == 'PlaceShips' ? PlaceShip : AttackShip));
+      divColumn.addEventListener('mouseover', AddHighlight);
+      divColumn.classList.add('grid-btn');
+      divColumn.id = `${gridID}_${rowNumber}_${columnNumber}`;
     }
   }
 
