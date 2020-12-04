@@ -1,3 +1,9 @@
+.container-player {
+  height: 500px;
+  width: 100%;
+  max-width: 444px;
+}
+
 .player-grid {
   border: #fe9a00 2px solid;
   overflow-x: auto;
@@ -46,4 +52,11 @@
 
 .grid-btn.ship-placed {
   background-color: rgb(241, 122, 18);
+}
+
+@media only screen and (max-width: 1300px) {
+  .container-player {
+    margin: auto;
+    margin-bottom: 25px;
+  }
 }

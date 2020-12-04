@@ -7,12 +7,6 @@
   margin-top: 0;
 }
 
-.container-player {
-  height: 500px;
-  width: 100%;
-  max-width: 444px;
-}
-
 .container-rotate .OrangeBtn {
   padding: 10px;
 }
@@ -60,6 +54,16 @@
   cursor: pointer;
 }
 
+.countdown {
+  display: none;
+  color: #fe9a00;
+  font-size: 25px;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 5px;
+}
+
 @media only screen and (max-width: 1300px) {
   .container {
     max-width: 800px;
@@ -92,14 +96,4 @@
   .container-availableships {
     width: 100%;
   }
-}
-
-.countdown {
-  display: none;
-  color: #fe9a00;
-  font-size: 25px;
-  max-width: -webkit-fit-content;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-  padding: 5px;
 }

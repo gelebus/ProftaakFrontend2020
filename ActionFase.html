@@ -4,37 +4,36 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
           crossorigin="anonymous">
     <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/ActionFase.css">
     <link rel="stylesheet" href="Css/Grid.css">
-    <link rel="stylesheet" href="Css/PlaceBoats.css">
     <link rel="stylesheet" href="Css/DropDown.css">
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 
-<body class="body">
-    <div style="padding-top: 5%;">
-        <div class="container background" style="padding-top: 2%; padding-bottom: 4%;">
-            <div class="row justify-content-between" style="margin:0 5%;">
-                <div class="container-player">
-                    <h2 class="h2" id="PlayerName">Guest</h2>
-                    <div class="player-grid" id="PlayerGrid" onmouseleave="RemoveHighlight()"></div>
-                </div>
-                <div>
-                    <div class="dropdown" style="margin-top: 30%; margin-left: 10%;">
-                    <button onclick="DropdownSelect()" class="dropbtn">Select Player <span style="font-size: 13px;">▼</span> </button>
+<body class="body container">
+    <div class="row justify-content-center">
+        <div class="row justify-content-between col-sm-12 content background">
+            <div class="container-player">
+                <h2 class="h2" id="PlayerName">Guest</h2>
+                <div class="player-grid" id="PlayerGrid" onmouseleave="RemoveHighlight()"></div>
+            </div>
+            
+            <div class="row align-items-center justify-content-between menu">
+                <div class="dropdown">
+                    <button onclick="DropdownSelect()" class="dropbtn">Select Player <span>▼</span> </button>
                     <div id="myDropdown" class="dropdown-content">
-                      <a href="#"> <span id="Enemy1">1234567891234567891211111111111111111111111111111111111</span></a>
-                      <a href="#"><span id="Enemy2">Player 2</span></a>
-                      <a href="#"><span id="Enemy3">Player 3</span></a>
+                        <a href="#"> <span id="Enemy1">1234567891234567891211111111111111111111111111111111111</span></a>
+                        <a href="#"><span id="Enemy2">Player 2</span></a>
+                        <a href="#"><span id="Enemy3">Player 3</span></a>
                     </div>
-                    </div> 
-                    <button class="OrangeBtn" style="margin-top: 100%;">Fire</button>
-                </div>
-                
-                <div class="container-player">
-                    <h2 class="h2" id="PlayerName">Guest</h2>
-                    <div class="player-grid" id="EnemyGrid" onmouseleave="RemoveHighlight()"></div>
-                </div>
+                </div> 
+                <button class="OrangeBtn">Fire</button>
+            </div>
+            
+            <div class="container-player">
+                <h2 class="h2" id="PlayerName">Guest</h2>
+                <div class="player-grid" id="EnemyGrid" onmouseleave="RemoveHighlight()"></div>
             </div>
         </div>
     </div>
