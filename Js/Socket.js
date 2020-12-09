@@ -4,39 +4,30 @@ function ConnectToSocket(token) {
   socket.emit('token', token);
 }
 
-socket.on('game_info', response =>{
-  StartGame(response);
-});
+function PlayerReady(data){
+  socket.emit('ready', {ready: data});
+}
 
 socket.on('player_joined', response => {
+  $(`#Player${response.index + 1}`).attr('player-status','Active');
   $(`#Player${response.index + 1}`).text(response.name);
 });
 
 socket.on('player_disconnected', response => {
-  $(`#Player${response.index + 1}`).text(`Player${response.index + 1}`);
-  $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', false);
+  if($(`#Player${response.index + 1}`).length > 0){
+    $(`#Player${response.index + 1}`).removeAttr('player-status');
+    $(`#Player${response.index + 1}`).text(`Player${response.index + 1}`);
+  }
+  if($(`#CheckBoxPlayer${response.index + 1}`).length > 0){
+    $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', false);
+  }
+  if($(`#ConfirmLayout${response.index + 1}`).length > 0){
+    $(`#ConfirmLayout${response.index + 1}`).removeAttr('player-status');
+    $(`#ConfirmLayout${response.index + 1}`).removeAttr('player-id');
+    $(`#ConfirmLayout${response.index + 1}`).removeAttr('player-name');
+    $(`#ConfirmLayout${response.index + 1}`).prop('checked', false);
+  }
 });
-
-function StartGame(data){
-  $('body').load('Game.html', ()=>{
-    history.pushState('data', 'Battleships - Game', 'Game.html');
-    document.title = 'Battleships - Game';
-
-    $('span#LobbyId').text(data.game_code);
-
-    $(`#CheckBoxPlayer${data.self_index + 1}`).addClass('Active');
-    $(`#Player${data.self_index + 1}`).addClass('Active');
-
-    for (let index = 0; index < data.players.length; index++) {
-      $(`#Player${index + 1}`).text(data.players[index].name);
-      $(`#CheckBoxPlayer${index + 1}`).prop('checked', data.players[index].ready);
-    }
-  });
-}
-
-function PlayerReady(data){
-  socket.emit('ready', {ready: data});
-}
 
 socket.on('player_ready', response => {
   if($(`#CheckBoxPlayer${response.index + 1}`).length > 0){
@@ -53,7 +44,10 @@ socket.on('player_ready', response => {
 
     $(`#PlayersReady #count`).text(count);
   }
-  
+});
+
+socket.on('game_info', response =>{
+  StartGame(response);
 });
 
 socket.on('game_starting', response => {
@@ -64,48 +58,17 @@ socket.on('cancel_game_start', response => {
   StopTimer();
 });
 
-function LoadPlaceBoatScreen(){
-  let PlayerName = $('span.Active').text();
-  let PlayersAmount = $('.player .Active').length;
-  let PlayerIndex = $('input.Active').prop('id').split('CheckBoxPlayer')[1];
-
-  let PlayerNames = [];
-
-  $('.player').each((i,e)=>{
-    PlayerNames.push({playerID: i, playerName: e.innerText});
-  });
-
-  $('body').load('PlaceBoats.html', () => {
-    $('#PlayerName').text(PlayerName);
-    $('#PlayersReady #amount').text(PlayersAmount);
-    $(`#ConfirmLayout${PlayerIndex}`).addClass('Active');
-
-    $('.player').each((i,e)=>{
-      $(e).attr('player-id', PlayerNames[i].playerID);
-      $(e).attr('player-name', PlayerNames[i].playerName);
-    });
-  });
-}
-
-function LoadActionFaseScreen(){
-  let PlayerName = $('#PlayerName').text();
-  $('body').load('ActionFase.html', () => {
-    $('#PlayerName').text(PlayerName);
-  });
-}
-
-
 function ConfirmLayout(data){
   socket.emit('confirm_layout', data);
+}
+
+function UnlockLayout(){
+  socket.emit('unlock_layout');
 }
 
 socket.on('invalid_layout', response => {
   alert('INVALID LAYOUT');
 });
-
-function UnlockLayout(){
-  socket.emit('unlock_layout');
-}
 
 socket.on('action_phase_starting', response => {
   StartTimer(1);

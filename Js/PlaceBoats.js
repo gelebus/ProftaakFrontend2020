@@ -21,12 +21,18 @@ function PlaceShip(e){
   
   if(selectedShip != null){
     let shipAmountElement = selectedShip.children[0].children[0];
+    let shipMaxAmountElement = selectedShip.children[0].children[1];
+
     let shipAmount = parseInt(shipAmountElement.innerText);
+    let shipMaxAmount = parseInt(shipMaxAmountElement.innerText);
+
     let cells = GetHighlightedCells();
 
     if(shipAmount > 0 && cells.length > 0){
+      let shipID = GetFreeID(selectedShip.id, shipMaxAmount);
+
       for (let i = 0; i < cells.length; i++) {
-        cells[i].classList.add('ship-placed',`${selectedShip.id}-${shipAmount}`);
+        cells[i].classList.add('ship-placed', shipID);
 
         if(cells[i].classList.contains('orientation-row')){
           cells[i].classList.add('horizontal');
@@ -70,6 +76,15 @@ function GetHighlightedCells(){
   return highlightedCells;
 }
 
+function GetFreeID(shipID, shipMaxAmount){
+  for (let index = 1; index < shipMaxAmount + 1; index++) {
+    let freeID = `${shipID}-${index}`;
+    if($(`.${freeID}`).length == 0){
+      return freeID;
+    }
+  }
+}
+
 function ResetGrid(){
   let PlayerName = $('#PlayerName').text();
   let PlayerID = $('.player.Active').prop('id');
@@ -77,10 +92,10 @@ function ResetGrid(){
   let playerAmount = $('#PlayersReady #amount').text();
 
 
-  let PlayerNames = [];
+  let Players = [];
 
   $('.player').each((i,e)=>{
-    PlayerNames.push({playerID: $(e).attr('player-id'), playerName: $(e).attr('player-name')});
+    Players.push({playerStatus: $(e).attr('player-status'), playerID: $(e).attr('player-id'), playerName: $(e).attr('player-name')});
   });
 
   $('body').load('PlaceBoats.html', () => {
@@ -90,8 +105,13 @@ function ResetGrid(){
     $(`#${PlayerID}`).addClass('Active');
 
     $('.player').each((i,e)=>{
-      $(e).attr('player-id', PlayerNames[i].playerID);
-      $(e).attr('player-name', PlayerNames[i].playerName);
+      if(Players[i].playerStatus == "Active"){
+        $(e).attr('player-status', Players[i].playerStatus);
+        $(e).attr('player-id', Players[i].playerID);
+        $(e).attr('player-name', Players[i].playerName);
+      }else{
+        $(e).attr('player-status', Players[i].playerStatus);
+      }
     });
   });
 }
