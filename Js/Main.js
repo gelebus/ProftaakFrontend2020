@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////
+// Host or Join the lobby /////////////////////////////////
+///////////////////////////////////////////////////////////
+
 function HostGame(){
   let username = $('#usernameInput').val();
   let game_code = $('#gamecodeInput').val();
@@ -47,10 +51,14 @@ function GetToken(username, game_code){
   });
 }
 
-function StartGame(data){
-  $('body').load('Game.html', ()=>{
-    history.pushState('data', 'Battleships - Game', 'Game.html');
-    document.title = 'Battleships - Game';
+///////////////////////////////////////////////////////////
+// Active while in Lobby //////////////////////////////////
+///////////////////////////////////////////////////////////
+
+function LoadLobby(data){
+  $('body').load('Lobby.html', ()=>{
+    history.pushState('data', 'Battleships - Lobby', 'Lobby.html');
+    document.title = 'Battleships - Lobby';
 
     $('span#LobbyId').text(data.game_code);
 
@@ -68,11 +76,7 @@ function StartGame(data){
 }
 
 function ReadyLobby(){
-  if(!$('input.Active').prop('checked')){
-    PlayerReady(true);
-  } else {
-    PlayerReady(false);
-  }
+  PlayerReady($('input.Active').prop('checked') == true ? false : true);
 }
 
 function LoadPlaceBoatScreen(){
@@ -105,6 +109,10 @@ function LoadPlaceBoatScreen(){
     $(`#ConfirmLayout${PlayerIndex}`).addClass('Active');
   });
 }
+
+///////////////////////////////////////////////////////////
+// Active while in PlaceBoats /////////////////////////////
+///////////////////////////////////////////////////////////
 
 function ReadyShips(){
   if(!$('input.Active').prop('checked')){
@@ -146,7 +154,11 @@ function GetShipInfo(output, shipCount, shipType, shipAmount){
 
 function LoadActionFaseScreen(){
   let PlayerName = $('#PlayerName').text();
-  $('body').load('ActionFase.html', () => {
+  $('body').load('ActionPhase.html', () => {
     $('#PlayerName').text(PlayerName);
   });
 }
+
+///////////////////////////////////////////////////////////
+// Active while in ActionPhase ////////////////////////////
+///////////////////////////////////////////////////////////

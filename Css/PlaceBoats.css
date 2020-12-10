@@ -7,8 +7,10 @@
   margin-top: 0;
 }
 
-.container-rotate .OrangeBtn {
-  padding: 10px;
+.placeship-option-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container-availableships .scrollbar-x {
