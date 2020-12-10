@@ -4,20 +4,21 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
           crossorigin="anonymous">
     <link rel="stylesheet" href="Css/style.css">
-    <link rel="stylesheet" href="Css/Game.css">
+    <link rel="stylesheet" href="Css/Lobby.css">
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 
 <body class="body container">
-    <h1 class="h1">Id: <span id="LobbyId">12435</span></h1>
+    <h1 class="title h1">Id: <span id="LobbyId">12435</span></h1>
     <div class="countdown">Game starts in: <span id="CountDown">3</span></div>
 
     <div class="row justify-content-center">
         <div class="row justify-content-between col-sm-12 content background">
-            <div class="col-sm-5 player-list">
+            <div class="player-list-container col-12">
+
                 <div class="row justify-content-between background player">
-                    <h2 class="h2"><span id="Player1">Player1</span></h2>
+                    <h2 class="title h2"><span id="Player1">Free slot</span></h2>
                     <div class="col-xs-2 container-checkbox">
                         <label class="checkbox-hidden">
                             <input type="checkbox" id="CheckBoxPlayer1" disabled>
@@ -25,8 +26,9 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="row justify-content-between background player">
-                    <h2 class="h2"><span id="Player2">Player2</span></h2>
+                    <h2 class="title h2"><span id="Player2">Free slot</span></h2>
                     <div class="col-xs-2 container-checkbox">
                         <label class="checkbox-hidden">
                             <input type="checkbox" id="CheckBoxPlayer2" disabled>
@@ -34,8 +36,9 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="row justify-content-between background player">
-                    <h2 class="h2"><span id="Player3">Player3</span></h2>
+                    <h2 class="title h2"><span id="Player3">Free slot</span></h2>
                     <div class="col-xs-2 container-checkbox">
                         <label class="checkbox-hidden">
                             <input type="checkbox" id="CheckBoxPlayer3" disabled>
@@ -43,8 +46,9 @@
                         </label>
                     </div>
                 </div>
+                
                 <div class="row justify-content-between background player">
-                    <h2 class="h2"><span id="Player4">Player4</span></h2>
+                    <h2 class="title h2"><span id="Player4">Free slot</span></h2>
                     <div class="col-xs-2 container-checkbox">
                         <label class="checkbox-hidden">
                             <input type="checkbox" id="CheckBoxPlayer4" disabled>
@@ -53,24 +57,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-6 rules-btn">
-                <div class="rules">
-                    <h1 class="h1">Rules</h1>
-                    <ul class="ul">
-                        <li class="h3">This is Rule Number 1. --------------- --------------</li>
-                        <li class="h3">This is Rule Number 2. ------------</li>
-                        <li class="h3">This is Rule Number 3. --------------- --------------</li>
-                        <li class="h3">This is Rule Number 4. ------------</li>
-                        <li class="h3">This is Rule Number 5. ------------</li>
-                        <li class="h3">This is Rule Number 3. ---------------- -------------</li>
-                        <li class="h3">This is Rule Number 3. ---------------- -------------</li>
-                    </ul>
-                </div>
-                <div class="row justify-content-around">
-                    <a class="OrangeBtn" href="MainMenu.html">Leave</a>
-                    <button class="OrangeBtn" onclick="ReadyLobby()">Ready</button>
-                </div>
+            <div class="lobby-btn-container col-12">
+                <a class="col OrangeBtn" href="MainMenu.html">Leave</a>
+                <button class="col OrangeBtn" onclick="ReadyLobby()">Ready</button>
             </div>
         </div>
     </div>

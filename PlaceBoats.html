@@ -11,25 +11,23 @@
 </head>
 
 <body class="body container">
-    <h1 class="h1">Setup Phase</h1>
+    <h1 class="title h1">Setup Phase</h1>
     <div class="countdown">Game starts in: <span id="CountDown">3</span></div>
     
     <div class="row justify-content-center">
         <div class="row justify-content-between col-sm-12 content background">
             <div class="container-player">
-                <h2 class="h2" id="PlayerName">Guest</h2>
+                <h2 class="title h2" id="PlayerName">Guest</h2>
                 <div class="player-grid" id="Grid" onmouseleave="RemoveHighlight()"></div>
             </div>
-            <div class="row align-items-center justify-content-center container-rotate">
-                <div>
-                    <button class="OrangeBtn" onclick="ResetGrid()">Reset Grid</button>
-                    <label class="OrangeBtn">Rotate Ship
-                        <input id="CheckboxRotateShip" type="checkbox" hidden>
-                    </label>
-                </div>
+            <div class="placeship-option-container">
+                <button class="OrangeBtn" onclick="ResetGrid()">Reset Grid</button>
+                <label class="OrangeBtn">Rotate Ship
+                    <input id="CheckboxRotateShip" type="checkbox" hidden>
+                </label>
             </div>
             <div class="container-availableships">
-                <h2 class="h2">Available Ships</h2>
+                <h2 class="title h2">Available Ships</h2>
                 <div class="scrollbar-x border-orange">
                     <table class="AvailableShips">
                         <tr>
@@ -66,7 +64,7 @@
                     <input class="player" id="ConfirmLayout4" type="checkbox" hidden>
                     <button class="OrangeBtn" onclick="ReadyShips()">Ready</button>
                 </div>
-                <h2 class="h2" style="text-align: center" id="PlayersReady"><span id="count">0</span>/<span id="amount">4</span></h2>
+                <h2 class="title h2" style="text-align: center" id="PlayersReady"><span id="count">0</span>/<span id="amount">4</span></h2>
             </div>
         </div>
     </div>

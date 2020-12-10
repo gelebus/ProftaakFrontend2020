@@ -1,21 +1,14 @@
-function StartTimer(data){
-  let time = 3;
+function StartTimer(timeStamp){
+  const startTime = new Date(timeStamp);
+  const currentTime = new Date();
+  let time = startTime - currentTime;
+
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
   Timer = setInterval(function(){
-    if(time == 0){
-      clearInterval(Timer);
-      if(data == 1)
-      {
-        LoadActionFaseScreen();
-      }else{
-        LoadPlaceBoatScreen();
-      }
-    }
-    
     time -= 1;
 
     if(time == 0){
-      document.getElementsByClassName('CountDown')[0].innerText = 'Start Game!';
+      document.getElementsByClassName('CountDown')[0].innerText = 'Next Phase!';
     }else if(time > 0){
       document.getElementById('CountDown').innerText = time;
     }
