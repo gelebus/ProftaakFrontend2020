@@ -21,18 +21,14 @@
 
             <div class="row align-items-center justify-content-between menu">
                 <div class="dropdown">
-                    <button onclick="DropdownSelect()" class="dropbtn">Select Player <img src="Images/chevron-down-solid.svg"> </button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#"> <span id="Enemy1">1234567891234567891211111111111111111111111111111111111</span></a>
-                        <a href="#"><span id="Enemy2">Player 2</span></a>
-                        <a href="#"><span id="Enemy3">Player 3</span></a>
-                    </div>
+                    <button onclick="DropdownSelect()" class="dropbtn">Opponents <img src="Images/chevron-down-solid.svg"></button>
+                    <div id="OpponentList" class="dropdown-content"></div>
                 </div> 
                 <button class="OrangeBtn">Fire</button>
             </div>
             
             <div class="container-player">
-                <h2 class="title h2" id="PlayerName">Guest</h2>
+                <h2 class="title h2" id="PlayerName">Choose your opponent</h2>
                 <div class="player-grid" id="EnemyGrid" onmouseleave="RemoveHighlight()"></div>
             </div>
         </div>

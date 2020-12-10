@@ -86,32 +86,12 @@ function GetFreeID(shipID, shipMaxAmount){
 }
 
 function ResetGrid(){
-  let PlayerName = $('#PlayerName').text();
-  let PlayerID = $('.player.Active').prop('id');
-  let playerReadyCount = $('#PlayersReady #count').text();
-  let playerAmount = $('#PlayersReady #amount').text();
-
-
-  let Players = [];
-
-  $('.player').each((i,e)=>{
-    Players.push({playerStatus: $(e).attr('player-status'), playerID: $(e).attr('player-id'), playerName: $(e).attr('player-name')});
-  });
 
   $('body').load('PlaceBoats.html', () => {
-    $('#PlayerName').text(PlayerName);
-    $('#PlayersReady #count').text(playerReadyCount);
-    $('#PlayersReady #amount').text(playerAmount);
-    $(`#${PlayerID}`).addClass('Active');
+    history.pushState('data', `Battleships - ${GameState}`, 'Game');
+    document.title = `Battleships - ${GameState}`;
 
-    $('.player').each((i,e)=>{
-      if(Players[i].playerStatus == "Active"){
-        $(e).attr('player-status', Players[i].playerStatus);
-        $(e).attr('player-id', Players[i].playerID);
-        $(e).attr('player-name', Players[i].playerName);
-      }else{
-        $(e).attr('player-status', Players[i].playerStatus);
-      }
-    });
+    $('#PlayerName').text(Players[ActivePlayerID].playerName);
+    $('#PlayersReady #amount').text(AmountPlayers);
   });
 }

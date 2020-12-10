@@ -8,12 +8,12 @@ const GAME_STATE_ACTION = 'action'
 const GAME_STATE_CONCLUDED = 'concluded'
 
 let GameState = GAME_STATE_NONE;
-let Players = [{playerStatus: 'inactive',playerName: 'Free slot'},
-              {playerStatus: 'inactive',playerName: 'Free slot'},
-              {playerStatus: 'inactive',playerName: 'Free slot'},
-              {playerStatus: 'inactive',playerName: 'Free slot'}];
+let Players = [{playerName: 'Free slot',readyForAction: false},
+              {playerName: 'Free slot',readyForAction: false},
+              {playerName: 'Free slot',readyForAction: false},
+              {playerName: 'Free slot',readyForAction: false}];
 let AmountPlayers = 0;
-let ActivePlayer;
+let ActivePlayerID;
 
 ///////////////////////////////////////////////////////////
 // Host or Join the lobby /////////////////////////////////
@@ -24,7 +24,6 @@ function ConnectToSocket(token) {
 }
 
 socket.on('player_joined', response => {
-  Players[response.index].playerStatus = 'active';
   Players[response.index].playerName = response.name;
   AmountPlayers++;
   $(`#Player${response.index + 1}`).text(response.name);
@@ -40,13 +39,12 @@ socket.on('game_info', response =>{
     $('span#LobbyId').text(response.game_code);
 
     AmountPlayers = response.players.length;
-    ActivePlayer = response.self_index;
+    ActivePlayerID = response.self_index;
 
-    $(`#Player${ActivePlayer + 1}`).addClass('Active');
-    $(`#CheckBoxPlayer${ActivePlayer + 1}`).addClass('Active');
+    $(`#Player${ActivePlayerID + 1}`).addClass('Active');
+    $(`#CheckBoxPlayer${ActivePlayerID + 1}`).addClass('Active');
 
     for (let index = 0; index < response.players.length; index++) {
-      Players[index].playerStatus = 'active';
       Players[index].playerName = response.players[index].name;
       $(`#Player${index + 1}`).text(response.players[index].name);
       $(`#CheckBoxPlayer${index + 1}`).prop('checked', response.players[index].ready);
@@ -68,10 +66,12 @@ socket.on('player_ready', response => {
       $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', response.ready);
       break;
     case GAME_STATE_SETUP:
-      $(`#ConfirmLayout${response.index + 1}`).prop('checked', response.ready);
-
+      Players[response.index].readyForAction = response.ready;
+  
       let count = parseInt($(`#PlayersReady #count`).text());
-      $(`#PlayersReady #count`).text($(`#ConfirmLayout${response.index + 1}`).prop('checked') == true ? count++ : count--);
+      let newCount = Players[response.index].readyForAction == true ? count + 1 : count - 1;
+
+      $(`#PlayersReady #count`).text(newCount);
       break;
     default:
       break;
@@ -83,8 +83,8 @@ socket.on('player_ready', response => {
 ///////////////////////////////////////////////////////////
 
 socket.on('player_disconnected', response => {
-  Players[response.index].playerStatus = 'inactive';
   Players[response.index].playerName = 'Free slot';
+  Players[response.index].readyForAction = false;
   AmountPlayers--;
 
   switch (GameState) {
@@ -93,7 +93,6 @@ socket.on('player_disconnected', response => {
       $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', false);
       break;
     case GAME_STATE_SETUP:
-      $(`#ConfirmLayout${response.index + 1}`).prop('checked', false);
       break;
     default:
       break;
@@ -113,18 +112,15 @@ socket.on('cancel_game_start', () => {
 });
 
 socket.on('game_start', () => {
+  StopTimer();
   GameState = GAME_STATE_SETUP;
-  
-  let PlayerName = $('span.Active').text();
-  let PlayerIndex = $('input.Active').prop('id').split('CheckBoxPlayer')[1];
 
   $('body').load('PlaceBoats.html', () => {
     history.pushState('data', `Battleships - ${GameState}`, 'Game');
     document.title = `Battleships - ${GameState}`;
 
-    $('#PlayerName').text(PlayerName);
+    $('#PlayerName').text(Players[ActivePlayerID].playerName);
     $('#PlayersReady #amount').text(AmountPlayers);
-    $(`#ConfirmLayout${PlayerIndex}`).addClass('Active');
   });
 });
 
@@ -148,16 +144,28 @@ socket.on('action_phase_starting', response => {
   StartTimer(response.start_at);
 });
 
-socket.on('action_phase_start', () => {
-  GameState = GAME_STATE_ACTION;
+socket.on('cancel_action_phase_start', () => {
+  StopTimer();
+});
 
-  let PlayerName = $('#PlayerName').text();
+socket.on('action_phase_start', () => {
+  StopTimer();
+  GameState = GAME_STATE_ACTION;
 
   $('body').load('ActionPhase.html', () => {
     history.pushState('data', `Battleships - ${GameState}`, 'Game');
     document.title = `Battleships - ${GameState}`;
 
-    $('#PlayerName').text(PlayerName);
+    $('#PlayerName').text(Players[ActivePlayerID].playerName);
+
+    Players.forEach((e,i) => {
+      if(i != ActivePlayerID && e.playerName != 'Free slot'){
+        let anchorElement = document.createElement('a');
+        anchorElement.setAttribute('opponent-id',i);
+        anchorElement.innerText = e.playerName;
+        document.getElementById('OpponentList').append(anchorElement);
+      }
+    });
   });
 });
 

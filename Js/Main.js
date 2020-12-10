@@ -65,7 +65,7 @@ function ReadyLobby(){
 ///////////////////////////////////////////////////////////
 
 function ReadyShips(){
-  if(!$('input.Active').prop('checked')){
+  if(!Players[ActivePlayerID].readyForAction){
     ConfirmLayout(GetShips());
   }
   else{

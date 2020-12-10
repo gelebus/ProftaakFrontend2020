@@ -12,7 +12,8 @@
 
 <body class="body container">
     <h1 class="title h1">Setup Phase</h1>
-    <div class="countdown">Game starts in: <span id="CountDown">3</span></div>
+    <div class="countDown">Next Phase in: <span id="CountDown">3</span></div>
+    <div class="countDown">Next Phase!</div>
     
     <div class="row justify-content-center">
         <div class="row justify-content-between col-sm-12 content background">
@@ -58,10 +59,6 @@
                     </table>
                 </div>
                 <div class="row justify-content-center container-btn">
-                    <input class="player" id="ConfirmLayout1" type="checkbox" hidden>
-                    <input class="player" id="ConfirmLayout2" type="checkbox" hidden>
-                    <input class="player" id="ConfirmLayout3" type="checkbox" hidden>
-                    <input class="player" id="ConfirmLayout4" type="checkbox" hidden>
                     <button class="OrangeBtn" onclick="ReadyShips()">Ready</button>
                 </div>
                 <h2 class="title h2" style="text-align: center" id="PlayersReady"><span id="count">0</span>/<span id="amount">4</span></h2>
@@ -75,6 +72,7 @@
 <!-- development only -->
 
 <script src="Js/Main.js"></script>
+<script src="Js/Timer.js"></script>
 <script src="Js/CreateGrid.js"></script>
 <script src="Js/GridHighlight.js"></script>
 <script src="Js/PlaceBoats.js"></script>

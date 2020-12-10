@@ -1,14 +1,16 @@
 function StartTimer(timeStamp){
-  const startTime = new Date(timeStamp);
-  const currentTime = new Date();
-  let time = startTime - currentTime;
+  let currentTime = Math.floor(Date.now() / 1000);
+  let time = timeStamp - currentTime;
 
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
+  document.getElementsByClassName('CountDown')[1].style.display = 'none';
+  
   Timer = setInterval(function(){
     time -= 1;
 
     if(time == 0){
-      document.getElementsByClassName('CountDown')[0].innerText = 'Next Phase!';
+      document.getElementsByClassName('CountDown')[0].style.display = 'none';
+      document.getElementsByClassName('CountDown')[1].style.display = 'block';
     }else if(time > 0){
       document.getElementById('CountDown').innerText = time;
     }
@@ -16,7 +18,8 @@ function StartTimer(timeStamp){
 }
 
 function StopTimer(){
-  document.getElementsByClassName('CountDown')[0].style.display = 'none';
-  document.getElementById('CountDown').innerText = '3';
   clearInterval(Timer);
+  document.getElementsByClassName('CountDown')[0].style.display = 'none';
+  document.getElementsByClassName('CountDown')[1].style.display = 'none';
+  document.getElementById('CountDown').innerText = 3;
 }
