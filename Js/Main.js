@@ -35,7 +35,8 @@ function JoinGame(){
 
 function GetToken(username, game_code){
   $.ajax({
-    url: `http://145.220.75.122/${game_code ? 'join-game' : 'host-game'}`,
+    url: `http://localhost:3000/${game_code ? 'join-game' : 'host-game'}`,
+    // url: `http://145.220.75.122/${game_code ? 'join-game' : 'host-game'}`,
     data: JSON.stringify({ username, game_code }),
     method: 'POST',
     headers: {
@@ -55,59 +56,8 @@ function GetToken(username, game_code){
 // Active while in Lobby //////////////////////////////////
 ///////////////////////////////////////////////////////////
 
-function LoadLobby(data){
-  $('body').load('Lobby.html', ()=>{
-    history.pushState('data', 'Battleships - Lobby', 'Lobby.html');
-    document.title = 'Battleships - Lobby';
-
-    $('span#LobbyId').text(data.game_code);
-
-    $(`#CheckBoxPlayer${data.self_index + 1}`).addClass('Active');
-    $(`#Player${data.self_index + 1}`).addClass('Active');
-
-    for (let index = 0; index < data.players.length; index++) {
-      $(`#Player${index + 1}`).attr('player-status','Active');
-      $(`#Player${index + 1}`).attr('player-id',index);
-      $(`#Player${index + 1}`).attr('player-name',data.players[index].name);
-      $(`#Player${index + 1}`).text(data.players[index].name);
-      $(`#CheckBoxPlayer${index + 1}`).prop('checked', data.players[index].ready);
-    }
-  });
-}
-
 function ReadyLobby(){
   PlayerReady($('input.Active').prop('checked') == true ? false : true);
-}
-
-function LoadPlaceBoatScreen(){
-  let PlayerName = $('span.Active').text();
-  let PlayerIndex = $('input.Active').prop('id').split('CheckBoxPlayer')[1];
-
-  let Players = [];
-
-  $('.player').each((i,e)=>{
-    let el = e.children[0].children[0];
-    Players.push({playerStatus: $(el).attr('player-status'), playerID: $(el).attr('player-id'), playerName: $(el).attr('player-name')});
-  });
-
-  $('body').load('PlaceBoats.html', () => {
-    let PlayerAmount = 0;
-
-    $('.player').each((i,e)=>{
-      if(Players[i].playerStatus == "Active"){
-        PlayerAmount++;
-        $(e).attr('player-status', Players[i].playerStatus);
-        $(e).attr('player-id', Players[i].playerID);
-        $(e).attr('player-name', Players[i].playerName);
-      }else{
-        $(e).attr('player-status', Players[i].playerStatus);
-      }
-    });
-
-    $('#PlayerName').text(PlayerName);
-    $('#PlayersReady #amount').text(PlayerAmount);
-    $(`#ConfirmLayout${PlayerIndex}`).addClass('Active');
-  });
 }
 
 ///////////////////////////////////////////////////////////
@@ -150,13 +100,6 @@ function GetShipInfo(output, shipCount, shipType, shipAmount){
       output.push({x: (parseInt(x) - 1), y: (parseInt(y) - 1), type, horizontal});
     }
   }
-}
-
-function LoadActionFaseScreen(){
-  let PlayerName = $('#PlayerName').text();
-  $('body').load('ActionPhase.html', () => {
-    $('#PlayerName').text(PlayerName);
-  });
 }
 
 ///////////////////////////////////////////////////////////
