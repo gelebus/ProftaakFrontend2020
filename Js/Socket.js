@@ -8,10 +8,10 @@ const GAME_STATE_ACTION = 'action'
 const GAME_STATE_CONCLUDED = 'concluded'
 
 let GameState = GAME_STATE_NONE;
-let Players = [{playerName: 'Free slot',readyForAction: false},
-              {playerName: 'Free slot',readyForAction: false},
-              {playerName: 'Free slot',readyForAction: false},
-              {playerName: 'Free slot',readyForAction: false}];
+let Players = [{playerName: 'Free slot',readyForAction: false,shipLayout: null},
+              {playerName: 'Free slot',readyForAction: false,shipLayout: null},
+              {playerName: 'Free slot',readyForAction: false,shipLayout: null},
+              {playerName: 'Free slot',readyForAction: false,shipLayout: null}];
 let AmountPlayers = 0;
 let ActivePlayerID;
 
@@ -129,11 +129,24 @@ socket.on('game_start', () => {
 ///////////////////////////////////////////////////////////
 
 function ConfirmLayout(data){
+  data = [{ "x": 0, "y": 0, "type": 0, "horizontal": true },
+          { "x": 3, "y": 0, "type": 0, "horizontal": true },
+          { "x": 6, "y": 0, "type": 0, "horizontal": true },
+          { "x": 8, "y": 2, "type": 0, "horizontal": true },
+          { "x": 0, "y": 2, "type": 1, "horizontal": true },
+          { "x": 4, "y": 2, "type": 1, "horizontal": true },
+          { "x": 0, "y": 4, "type": 1, "horizontal": true },
+          { "x": 4, "y": 4, "type": 2, "horizontal": true },
+          { "x": 0, "y": 6, "type": 2, "horizontal": true },
+          { "x": 5, "y": 6, "type": 3, "horizontal": true }];
+  
   socket.emit('confirm_layout', data);
+  Players[ActivePlayerID].shipLayout = data;
 }
 
 function UnlockLayout(){
   socket.emit('unlock_layout');
+  Players[ActivePlayerID].shipLayout = null;
 }
 
 socket.on('invalid_layout', () => {
@@ -157,6 +170,8 @@ socket.on('action_phase_start', () => {
     document.title = `Battleships - ${GameState}`;
 
     $('#PlayerName').text(Players[ActivePlayerID].playerName);
+
+    AddLayoutToGrid('PlayerGrid', Players[ActivePlayerID].shipLayout);
 
     Players.forEach((e,i) => {
       if(i != ActivePlayerID && e.playerName != 'Free slot'){
