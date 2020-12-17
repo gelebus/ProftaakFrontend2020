@@ -14,6 +14,44 @@ function AttackShip(e){
 }
 
 function AddLayoutToGrid(gridID, shipLayout){
-  console.log(`Grid id: ${document.getElementById(gridID)}`);
-  console.log(`Ship layout: ${shipLayout}`);
+  let playerGrid = document.getElementById(gridID);
+
+  for (let i = 0; i < playerGrid.children.length; i++) {
+    let row = playerGrid.children[i];
+    for (let j = 0; j < row.children.length; j++) {
+      let cell = row.children[j];
+      let cellPosX = parseInt(cell.id.split('_')[2]) - 1;
+      let cellPosY = parseInt(cell.id.split('_')[1]) - 1;
+
+      let ship = GetSipPos(shipLayout, cellPosX, cellPosY);
+
+      if(ship != null){
+        PlaceShip(gridID, ship, cellPosX, cellPosY);
+      }
+    }
+  }
+}
+
+function GetSipPos(shipLayout, x, y){
+  for (let i = 0; i < shipLayout.length; i++) {
+    if(shipLayout[i].x == x && shipLayout[i].y == y){
+      return shipLayout[i];
+    }
+  }
+  return null;
+}
+
+function PlaceShip(gridID, ship, cellPosX, cellPosY){
+  let shipLength = ship.type + 2;
+  if(ship.horizontal){
+    for (let i = cellPosX; i < cellPosX + shipLength; i++) {
+      let cell = document.getElementById(`${gridID}_${cellPosY + 1}_${i + 1}`);
+      cell.classList.add('ship-placed');
+    }
+  }else{
+    for (let i = cellPosY; i < cellPosY + shipLength; i++) {
+      let cell = document.getElementById(`${gridID}_${i + 1}_${cellPosX + 1}`);
+      cell.classList.add('ship-placed');
+    }
+  }
 }
