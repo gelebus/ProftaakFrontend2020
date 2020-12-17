@@ -188,12 +188,6 @@ socket.on('action_phase_start', () => {
 ///////////////////////////////////////////////////////////
 // Active while in ActionPhase ////////////////////////////
 ///////////////////////////////////////////////////////////
-
-socket.on('game_concluded', response => {
-  GameState = GAME_STATE_CONCLUDED;
-  console.log("Winner Index: " + response.winner_index);
-});
-
 socket.on('player_eliminated', response => {
   console.log("Player Eliminated: " + response.index);
 });
@@ -236,4 +230,26 @@ function Shoot(){
               };
   socket.emit('shoot', data);
 }
-
+///////////////////////////////////////////////////////////
+// Will Activate When Game is over/////////////////////////
+///////////////////////////////////////////////////////////
+socket.on('game_concluded', response => {
+  GameState = GAME_STATE_CONCLUDED;
+  console.log("Winner Index: " + response.winner_index);
+  $('body').load('GameOver.html', () => {
+    history.pushState('data', `Battleships - ${GameState}`, 'Game');
+    document.title = `Battleships - ${GameState}`;
+    if(ActivePlayerID == response.winner_index)
+    {
+      document.getElementById('VictoryTitle').style.display = 'block';
+      document.getElementById('VictoryName').innerText = Players[ActivePlayerID].playerName;
+      document.getElementById('VictoryText').style.display = 'block';      
+    }
+    else
+    {
+      document.getElementById('DefeatTitle').style.display = 'block';
+      document.getElementById('DefeatName').innerText = Players[ActivePlayerID].playerName;
+      document.getElementById('DefeatText').style.display = 'block';
+    }
+  });
+});

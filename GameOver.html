@@ -12,23 +12,22 @@
 <body class="body container">
     <div class="row justify-content-center">
         <div class="col-sm-12 content background">
-            <h1 class="h1 title text-center">Victory/Defeated</h1>
-            
+            <h1 class="h1 title text-center" id="VictoryTitle" style="display: none">Victory</h1>
+            <h1 class="h1 title text-center" id="DefeatTitle" style="display: none">Defeated</h1>            
             <div class="textContainer">
-                <div class="textLeft">
-                    <p class="text text-left">Congratulations (Playername)</p>
+                <div id ="VictoryText" style="display: none">
+                    <p class="text text-center">Congratulations <span id="VictoryName"></span></p>
+                    <p class="text text-center">Your fleet is the last one standing</p>
                 </div>
-                <div class="textRight"> 
-                    <p class="text text-right">Battleluck next time (Playername)</p>   
+                <div id="DefeatText" style="display: none">
+                    <p class="text text-center">Battleluck next time <span id="DefeatName"></span></p>
+                    <p class="text text-center">Your entire fleet has been destroyed</p> 
                 </div>
-                <p class="text text-center">(Victory)Your fleet is the last one standing</p> 
-                <p class="text text-center">(Defeat)Your fleet is the last one standing</p> 
             </div>
-            
-
             <div class="row justify-content-center container-btn">
-                <a class="OrangeBtn" href="Index.html">Home</a>
+                <a class="OrangeBtn" href="MainMenu.html">Return to menu</a>
             </div>
         </div>
     </div>
 </body>
+<script src="Js/Main.js"></script>
