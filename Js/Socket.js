@@ -129,16 +129,16 @@ socket.on('game_start', () => {
 ///////////////////////////////////////////////////////////
 
 function ConfirmLayout(data){
-  data = [{ "x": 0, "y": 0, "type": 0, "horizontal": true },
-          { "x": 3, "y": 0, "type": 0, "horizontal": true },
-          { "x": 6, "y": 0, "type": 0, "horizontal": true },
-          { "x": 8, "y": 2, "type": 0, "horizontal": true },
-          { "x": 0, "y": 2, "type": 1, "horizontal": true },
-          { "x": 4, "y": 2, "type": 1, "horizontal": true },
-          { "x": 0, "y": 4, "type": 1, "horizontal": true },
-          { "x": 4, "y": 4, "type": 2, "horizontal": true },
-          { "x": 0, "y": 6, "type": 2, "horizontal": true },
-          { "x": 5, "y": 6, "type": 3, "horizontal": true }];
+  data = [{ "x": 0, "y": 0, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
+          { "x": 3, "y": 0, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
+          { "x": 6, "y": 0, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
+          { "x": 8, "y": 2, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
+          { "x": 0, "y": 2, "type": 1, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false } },
+          { "x": 4, "y": 2, "type": 1, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false } },
+          { "x": 0, "y": 4, "type": 1, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false } },
+          { "x": 4, "y": 4, "type": 2, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false, "cell4": false } },
+          { "x": 0, "y": 6, "type": 2, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false, "cell4": false } },
+          { "x": 5, "y": 6, "type": 3, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false, "cell4": false, "cell5": false } }];
   
   socket.emit('confirm_layout', data);
   Players[ActivePlayerID].shipLayout = data;
@@ -170,6 +170,7 @@ socket.on('action_phase_start', () => {
     document.title = `Battleships - ${GameState}`;
 
     $('#PlayerName').text(Players[ActivePlayerID].playerName);
+    $('#PlayerTurn').text(`${Players[0].playerName}'s turn`);
 
     AddLayoutToGrid('PlayerGrid', Players[ActivePlayerID].shipLayout);
 
@@ -188,42 +189,43 @@ socket.on('action_phase_start', () => {
 ///////////////////////////////////////////////////////////
 // Active while in ActionPhase ////////////////////////////
 ///////////////////////////////////////////////////////////
+
 socket.on('player_eliminated', response => {
   console.log("Player Eliminated: " + response.index);
 });
 
 socket.on('player_turn', response => {
   console.log("Player Turn: " + response.index);
-  let playerTurnText = document.getElementById('player_turn');
-  playerTurnText.innerHTML = Players[response.index].playerName + "'s turn"
+  
+  $('#PlayerTurn').text(`${Players[response.index].playerName}'s turn`);
 });
 
 socket.on('ship_hit', response => {
-  console.log("Ship hit: " + response.target_index);
+  console.log(`Ship hit ${response.target_index}`);
   console.log(response);
-  console.log("");
-  
-  let selectedCell = document.getElementsByClassName('grid-btn cell-selected')[0]; 
-  selectedCell.classList.remove('cell-selected');
-  selectedCell.classList.add('cell-shothit');
+  console.log('');
+
+  let selectedCell = $('.grid-btn.cell-selected'); 
+  selectedCell.removeClass('cell-selected');
+  selectedCell.addClass('cell-shothit');
 });
 
 socket.on('shot_missed', response => {
-  console.log("Shot missed: " + response.target_index);
+  console.log(`Ship missed ${response.target_index}`);
   console.log(response);
-  console.log("");
+  console.log('');
 
-  let selectedCell = document.getElementsByClassName('grid-btn cell-selected')[0]; 
-  selectedCell.classList.remove('cell-selected');
-  selectedCell.classList.add('cell-shotmissed');
+  let selectedCell = $('.grid-btn.cell-selected'); 
+  selectedCell.removeClass('cell-selected');
+  selectedCell.addClass('cell-shotmissed');
 });
 
-socket.on('invalid_coordinates', response => {
-  alert("Error: Invalid Coordinates");
+socket.on('invalid_coordinates', () => {
+  alert('Error: Invalid Coordinates');
 });
 
-socket.on('invalid_target', response => {
-  alert("Error: Please select a target");
+socket.on('invalid_target', () => {
+  alert('Error: Please select a target');
 });
 
 function Shoot(){
@@ -234,18 +236,18 @@ function Shoot(){
   let cellPosX = parseInt(selectedCellId.split('_')[2]) - 1;
   let cellPosY = parseInt(selectedCellId.split('_')[1]) - 1;
 
-  let data = { "target_index": enemyId,
-                "x": cellPosX,
-                "y": cellPosY
-              };
+  let data = { "target_index": enemyId, "x": cellPosX, "y": cellPosY };
   socket.emit('shoot', data);
 }
+
 ///////////////////////////////////////////////////////////
 // Will Activate When Game is over/////////////////////////
 ///////////////////////////////////////////////////////////
+
 socket.on('game_concluded', response => {
   GameState = GAME_STATE_CONCLUDED;
   console.log("Winner Index: " + response.winner_index);
+
   $('body').load('GameOver.html', () => {
     history.pushState('data', `Battleships - ${GameState}`, 'Game');
     document.title = `Battleships - ${GameState}`;
