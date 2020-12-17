@@ -194,26 +194,36 @@ socket.on('player_eliminated', response => {
 
 socket.on('player_turn', response => {
   console.log("Player Turn: " + response.index);
+  let playerTurnText = document.getElementById('player_turn');
+  playerTurnText.innerHTML = Players[response.index].playerName + "'s turn"
 });
 
 socket.on('ship_hit', response => {
   console.log("Ship hit: " + response.target_index);
   console.log(response);
   console.log("");
+  
+  let selectedCell = document.getElementsByClassName('grid-btn cell-selected')[0]; 
+  selectedCell.classList.remove('cell-selected');
+  selectedCell.classList.add('cell-shothit');
 });
 
 socket.on('shot_missed', response => {
   console.log("Shot missed: " + response.target_index);
   console.log(response);
   console.log("");
+
+  let selectedCell = document.getElementsByClassName('grid-btn cell-selected')[0]; 
+  selectedCell.classList.remove('cell-selected');
+  selectedCell.classList.add('cell-shotmissed');
 });
 
 socket.on('invalid_coordinates', response => {
-  console.log("Error: Invalid Coordinates");
+  alert("Error: Invalid Coordinates");
 });
 
 socket.on('invalid_target', response => {
-  console.log("Error: Invalid Target");
+  alert("Error: Please select a target");
 });
 
 function Shoot(){

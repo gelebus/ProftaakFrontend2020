@@ -70,3 +70,11 @@
 .grid-btn.cell-selected{
   background-color: rgb(241, 122, 18);
 }
+
+.grid-btn.cell-shothit{
+  background-color: #D50000;
+}
+
+.grid-btn.cell-shotmissed{
+  background-color: #0066ff;
+}
