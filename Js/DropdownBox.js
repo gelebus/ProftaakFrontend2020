@@ -19,5 +19,9 @@ window.onclick = function(event) {
 } 
 
 function SelectPlayer(e){
+  let player = e.target;
   console.log(e.target.getAttribute('opponent-id'));
+  let playerContainer = document.getElementById('EnemyName');
+  playerContainer.setAttribute('opponent-id', player.getAttribute('opponent-id'));
+  playerContainer.innerText = player.innerText;
 }

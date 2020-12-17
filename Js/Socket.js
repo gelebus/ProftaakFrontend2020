@@ -223,9 +223,16 @@ socket.on('invalid_target', response => {
 });
 
 function Shoot(){
-  let data = { "target_index": 1,
-                "x": 4,
-                "y": 4
+  let enemyContainer = document.getElementById('EnemyName');
+  let enemyId = enemyContainer.getAttribute('opponent-id');
+
+  let selectedCellId = document.getElementsByClassName('grid-btn cell-selected')[0].id; 
+  let cellPosX = parseInt(selectedCellId.split('_')[2]) - 1;
+  let cellPosY = parseInt(selectedCellId.split('_')[1]) - 1;
+
+  let data = { "target_index": enemyId,
+                "x": cellPosX,
+                "y": cellPosY
               };
   socket.emit('shoot', data);
 }
