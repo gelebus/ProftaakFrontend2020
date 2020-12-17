@@ -66,3 +66,7 @@
     margin-bottom: 25px;
   }
 }
+
+.grid-btn.cell-selected{
+  background-color: rgb(241, 122, 18);
+}
