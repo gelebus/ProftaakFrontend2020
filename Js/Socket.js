@@ -1,5 +1,5 @@
 const socket = io('ws://localhost:3000');
-// const socket = io('ws://145.220.75.122');
+//const socket = io('ws://145.220.75.122');
 
 const GAME_STATE_LOBBY = 'lobby'
 const GAME_STATE_NONE = 'none'
@@ -178,6 +178,7 @@ socket.on('action_phase_start', () => {
         let anchorElement = document.createElement('a');
         anchorElement.setAttribute('opponent-id',i);
         anchorElement.innerText = e.playerName;
+        anchorElement.addEventListener('click', SelectPlayer);
         document.getElementById('OpponentList').append(anchorElement);
       }
     });
@@ -190,5 +191,42 @@ socket.on('action_phase_start', () => {
 
 socket.on('game_concluded', response => {
   GameState = GAME_STATE_CONCLUDED;
-
+  console.log("Winner Index: " + response.winner_index);
 });
+
+socket.on('player_eliminated', response => {
+  console.log("Player Eliminated: " + response.index);
+});
+
+socket.on('player_turn', response => {
+  console.log("Player Turn: " + response.index);
+});
+
+socket.on('ship_hit', response => {
+  console.log("Ship hit: " + response.target_index);
+  console.log(response);
+  console.log("");
+});
+
+socket.on('shot_missed', response => {
+  console.log("Shot missed: " + response.target_index);
+  console.log(response);
+  console.log("");
+});
+
+socket.on('invalid_coordinates', response => {
+  console.log("Error: Invalid Coordinates");
+});
+
+socket.on('invalid_target', response => {
+  console.log("Error: Invalid Target");
+});
+
+function Shoot(){
+  let data = { "target_index": 1,
+                "x": 4,
+                "y": 4
+              };
+  socket.emit('shoot', data);
+}
+

@@ -17,3 +17,7 @@ window.onclick = function(event) {
     }
   }
 } 
+
+function SelectPlayer(e){
+  console.log(e.target.getAttribute('opponent-id'));
+}
