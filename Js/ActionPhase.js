@@ -1,4 +1,4 @@
-function AttackShip(e){
+function SelectedCell(e){
   let cell = e.target;
   let gridId = cell.parentElement.parentElement.id;
   console.log('You attack cell: ' + e.target.id);
@@ -23,7 +23,7 @@ function AddLayoutToGrid(gridID, shipLayout){
       let cellPosX = parseInt(cell.id.split('_')[2]) - 1;
       let cellPosY = parseInt(cell.id.split('_')[1]) - 1;
 
-      let ship = GetSipPos(shipLayout, cellPosX, cellPosY);
+      let ship = GetShipPos(shipLayout, cellPosX, cellPosY);
 
       if(ship != null){
         PlaceShip(gridID, ship, cellPosX, cellPosY);
@@ -32,7 +32,7 @@ function AddLayoutToGrid(gridID, shipLayout){
   }
 }
 
-function GetSipPos(shipLayout, x, y){
+function GetShipPos(shipLayout, x, y){
   for (let i = 0; i < shipLayout.length; i++) {
     if(shipLayout[i].x == x && shipLayout[i].y == y){
       return shipLayout[i];
@@ -55,3 +55,4 @@ function PlaceShip(gridID, ship, cellPosX, cellPosY){
     }
   }
 }
+

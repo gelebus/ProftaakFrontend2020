@@ -1,5 +1,5 @@
 const socket = io('ws://localhost:3000');
-//const socket = io('ws://145.220.75.122');
+// const socket = io('ws://145.220.75.122');
 
 const GAME_STATE_LOBBY = 'lobby'
 const GAME_STATE_NONE = 'none'
@@ -8,10 +8,10 @@ const GAME_STATE_ACTION = 'action'
 const GAME_STATE_CONCLUDED = 'concluded'
 
 let GameState = GAME_STATE_NONE;
-let Players = [{playerName: 'Free slot',readyForAction: false,shipLayout: null},
-              {playerName: 'Free slot',readyForAction: false,shipLayout: null},
-              {playerName: 'Free slot',readyForAction: false,shipLayout: null},
-              {playerName: 'Free slot',readyForAction: false,shipLayout: null}];
+let Players = [{playerName: 'Free slot',readyForAction: false,shipLayout: null,shotsOnGrid: []},
+              {playerName: 'Free slot',readyForAction: false,shipLayout: null,shotsOnGrid: []},
+              {playerName: 'Free slot',readyForAction: false,shipLayout: null,shotsOnGrid: []},
+              {playerName: 'Free slot',readyForAction: false,shipLayout: null,shotsOnGrid: []}];
 let AmountPlayers = 0;
 let ActivePlayerID;
 
@@ -129,17 +129,6 @@ socket.on('game_start', () => {
 ///////////////////////////////////////////////////////////
 
 function ConfirmLayout(data){
-  data = [{ "x": 0, "y": 0, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
-          { "x": 3, "y": 0, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
-          { "x": 6, "y": 0, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
-          { "x": 8, "y": 2, "type": 0, "horizontal": true, "cells": {"cell1": false, "cell2": false} },
-          { "x": 0, "y": 2, "type": 1, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false } },
-          { "x": 4, "y": 2, "type": 1, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false } },
-          { "x": 0, "y": 4, "type": 1, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false } },
-          { "x": 4, "y": 4, "type": 2, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false, "cell4": false } },
-          { "x": 0, "y": 6, "type": 2, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false, "cell4": false } },
-          { "x": 5, "y": 6, "type": 3, "horizontal": true, "cells": {"cell1": false, "cell2": false, "cell3": false, "cell4": false, "cell5": false } }];
-  
   socket.emit('confirm_layout', data);
   Players[ActivePlayerID].shipLayout = data;
 }
@@ -201,23 +190,27 @@ socket.on('player_turn', response => {
 });
 
 socket.on('ship_hit', response => {
-  console.log(`Ship hit ${response.target_index}`);
-  console.log(response);
-  console.log('');
+  Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'hit' });
 
-  let selectedCell = $('.grid-btn.cell-selected'); 
-  selectedCell.removeClass('cell-selected');
-  selectedCell.addClass('cell-shothit');
+  if(ActivePlayerID == response.target_index){
+    document.getElementById(`PlayerGrid_${response.y+1}_${response.x+1}`).classList.add('cell-shothit');
+  }else{
+    let selectedCell = document.getElementById(`EnemyGrid_${response.y+1}_${response.x+1}`); 
+    selectedCell.classList.remove('cell-selected');
+    selectedCell.classList.add('cell-shothit');
+  }
 });
 
 socket.on('shot_missed', response => {
-  console.log(`Ship missed ${response.target_index}`);
-  console.log(response);
-  console.log('');
+  Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'miss' });
 
-  let selectedCell = $('.grid-btn.cell-selected'); 
-  selectedCell.removeClass('cell-selected');
-  selectedCell.addClass('cell-shotmissed');
+  if(ActivePlayerID == response.target_index){
+    document.getElementById(`PlayerGrid_${response.y+1}_${response.x+1}`).classList.add('cell-shotmissed');
+  }else{
+    let selectedCell = document.getElementById(`EnemyGrid_${response.y+1}_${response.x+1}`); 
+    selectedCell.classList.remove('cell-selected');
+    selectedCell.classList.add('cell-shotmissed');
+  }
 });
 
 socket.on('invalid_coordinates', () => {
@@ -251,14 +244,12 @@ socket.on('game_concluded', response => {
   $('body').load('GameOver.html', () => {
     history.pushState('data', `Battleships - ${GameState}`, 'Game');
     document.title = `Battleships - ${GameState}`;
-    if(ActivePlayerID == response.winner_index)
-    {
+
+    if(ActivePlayerID == response.winner_index){
       document.getElementById('VictoryTitle').style.display = 'block';
       document.getElementById('VictoryName').innerText = Players[ActivePlayerID].playerName;
       document.getElementById('VictoryText').style.display = 'block';      
-    }
-    else
-    {
+    }else{
       document.getElementById('DefeatTitle').style.display = 'block';
       document.getElementById('DefeatName').innerText = Players[ActivePlayerID].playerName;
       document.getElementById('DefeatText').style.display = 'block';

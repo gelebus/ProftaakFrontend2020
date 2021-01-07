@@ -73,7 +73,7 @@ function HighlightCells(e){
       }
     }
   }else{
-    if(e.classList.contains('ship-placed')){
+    if(GameState == GAME_STATE_SETUP && e.classList.contains('ship-placed')){
       let shipClass = e.classList[2];
       $(`.${shipClass}`).each((i,e)=>{
         $(e).addClass('error-highlight');

@@ -31,7 +31,7 @@ function CreateDivColumn(gridID, rowNumber, columnNumber, gridType){
       let indicator = rowNumber;
       divColumn = CreateGridIndicator(divColumn, id, indicator);
     }else{
-      divColumn.addEventListener('click', (gridType == 'PlaceShips' ? PlaceShip : AttackShip));
+      divColumn.addEventListener('click', (gridType == 'PlaceShips' ? PlaceShip : SelectedCell));
       divColumn.addEventListener('mouseover', AddHighlight);
       divColumn.classList.add('grid-btn');
       divColumn.id = `${gridID}_${rowNumber}_${columnNumber}`;

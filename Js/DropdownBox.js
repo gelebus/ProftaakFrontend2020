@@ -1,10 +1,7 @@
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
 function DropdownSelect() {
     document.getElementById("OpponentList").classList.toggle("show");
 }
 
-// Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -20,8 +17,28 @@ window.onclick = function(event) {
 
 function SelectPlayer(e){
   let player = e.target;
-  console.log('Selected player: ' + e.target.getAttribute('opponent-id'));
   let playerContainer = document.getElementById('EnemyName');
   playerContainer.setAttribute('opponent-id', player.getAttribute('opponent-id'));
   playerContainer.innerText = player.innerText;
+
+  FillEnemyGrid(player.getAttribute('opponent-id'));
+}
+
+function FillEnemyGrid(playerID){
+  document.getElementById('EnemyGrid').innerHTML = '';
+  CreateGrid('EnemyGrid');
+  
+  for (let i = 0; i < Players[playerID].shotsOnGrid.length; i++) {
+    let cellInfo = Players[playerID].shotsOnGrid[i];
+    let cellElement = document.getElementById(`EnemyGrid_${cellInfo.y+1}_${cellInfo.x+1}`);
+    
+    if(cellInfo.status == 'hit'){
+      cellElement.classList.add('cell-shothit');
+    }else{
+      cellElement.classList.add('cell-shotmissed');
+    }
+  }
+
+
+  console.log(Players[playerID].shotsOnGrid);
 }
