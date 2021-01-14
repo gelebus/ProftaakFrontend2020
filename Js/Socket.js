@@ -83,7 +83,9 @@ socket.on('player_ready', response => {
 ///////////////////////////////////////////////////////////
 
 socket.on('player_disconnected', response => {
-  alert(`${Players[response.index].playerName} has left the party!`);
+  if(GameState != GAME_STATE_CONCLUDED){
+    alert(`${Players[response.index].playerName} has left the party!`);
+  }
 
   Players[response.index].playerName = 'Free slot';
   Players[response.index].readyForAction = false;
