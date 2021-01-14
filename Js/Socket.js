@@ -83,8 +83,12 @@ socket.on('player_ready', response => {
 ///////////////////////////////////////////////////////////
 
 socket.on('player_disconnected', response => {
+  alert(`${Players[response.index].playerName} has left the party!`);
+
   Players[response.index].playerName = 'Free slot';
   Players[response.index].readyForAction = false;
+  Players[response.index].shipLayout = null;
+  Players[response.index].shotsOnGrid = [];
   AmountPlayers--;
 
   switch (GameState) {
@@ -93,6 +97,16 @@ socket.on('player_disconnected', response => {
       $(`#CheckBoxPlayer${response.index + 1}`).prop('checked', false);
       break;
     case GAME_STATE_SETUP:
+      $('#PlayersReady #amount').text(AmountPlayers);
+      break;
+    case GAME_STATE_ACTION:
+      let opponents = document.querySelectorAll('[opponent-id]');
+      opponents.forEach((e,i) => {
+        if(e.getAttribute('opponent-id') == response.index) {
+          let opponentListElement = document.getElementById('OpponentList');
+          opponentListElement.removeChild(e);
+        }
+      });
       break;
     default:
       break;
@@ -180,12 +194,14 @@ socket.on('action_phase_start', () => {
 ///////////////////////////////////////////////////////////
 
 socket.on('player_eliminated', response => {
-  console.log("Player Eliminated: " + response.index);
+  if(ActivePlayerID != response.index){
+    alert(`${Players[response.index].playerName} has been eliminated!`);
+  }else{
+    alert('Oh on! You are eliminated!');
+  }
 });
 
 socket.on('player_turn', response => {
-  console.log("Player Turn: " + response.index);
-  
   $('#PlayerTurn').text(`${Players[response.index].playerName}'s turn`);
 });
 
@@ -223,13 +239,14 @@ socket.on('invalid_target', () => {
 
 function Shoot(){
   let enemyContainer = document.getElementById('EnemyName');
-  let enemyId = enemyContainer.getAttribute('opponent-id');
+  let enemyId = parseInt(enemyContainer.getAttribute('opponent-id'));
 
   let selectedCellId = document.getElementsByClassName('grid-btn cell-selected')[0].id; 
   let cellPosX = parseInt(selectedCellId.split('_')[2]) - 1;
   let cellPosY = parseInt(selectedCellId.split('_')[1]) - 1;
 
   let data = { "target_index": enemyId, "x": cellPosX, "y": cellPosY };
+
   socket.emit('shoot', data);
 }
 
@@ -239,7 +256,6 @@ function Shoot(){
 
 socket.on('game_concluded', response => {
   GameState = GAME_STATE_CONCLUDED;
-  console.log("Winner Index: " + response.winner_index);
 
   $('body').load('GameOver.html', () => {
     history.pushState('data', `Battleships - ${GameState}`, 'Game');
@@ -255,4 +271,13 @@ socket.on('game_concluded', response => {
       document.getElementById('DefeatText').style.display = 'block';
     }
   });
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Triggers if all your mates have left you alone without giving you a message #StopBullying /////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+socket.on('game_closed', () => {
+  alert('You are the only player left, thus we need to redirect you to the main menu, because you can not play this game on your own.');
+  document.location.href = 'MainMenu';
 });
