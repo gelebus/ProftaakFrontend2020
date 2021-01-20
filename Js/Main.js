@@ -35,7 +35,7 @@ function JoinGame(){
 
 function GetToken(username, game_code){
   $.ajax({
-    url: `http://localhost:3000/${game_code ? 'join-game' : 'host-game'}`,
+    url: `http://178.62.244.31:5050/${game_code ? 'join-game' : 'host-game'}`,
     // url: `http://145.220.75.122/${game_code ? 'join-game' : 'host-game'}`,
     data: JSON.stringify({ username, game_code }),
     method: 'POST',

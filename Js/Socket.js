@@ -1,4 +1,4 @@
-const socket = io('ws://localhost:3000');
+const socket = io('ws://178.62.244.31:5050');
 // const socket = io('ws://145.220.75.122');
 
 const GAME_STATE_LOBBY = 'lobby'
@@ -137,6 +137,9 @@ socket.on('game_start', () => {
 
     $('#PlayerName').text(Players[ActivePlayerID].playerName);
     $('#PlayersReady #amount').text(AmountPlayers);
+
+    const audio = new Audio('/Audio/game_start.mp3')
+    audio.play()
   });
 });
 
@@ -188,6 +191,9 @@ socket.on('action_phase_start', () => {
         document.getElementById('OpponentList').append(anchorElement);
       }
     });
+    
+    const audio = new Audio('/Audio/game_start.mp3')
+    audio.play()
   });
 });
 
@@ -205,6 +211,11 @@ socket.on('player_eliminated', response => {
 
 socket.on('player_turn', response => {
   $('#PlayerTurn').text(`${Players[response.index].playerName}'s turn`);
+
+  if (response.index == ActivePlayerID) {
+    const audio = new Audio('/Audio/player_turn.mp3')
+    audio.play()
+  }
 });
 
 socket.on('ship_hit', response => {
