@@ -1,5 +1,4 @@
 const socket = io('ws://178.62.244.31:5050');
-// const socket = io('ws://145.220.75.122');
 
 const GAME_STATE_LOBBY = 'lobby'
 const GAME_STATE_NONE = 'none'
@@ -211,7 +210,7 @@ socket.on('player_eliminated', response => {
   if(ActivePlayerID != response.index){
     alert(`${Players[response.index].playerName} has been eliminated!`);
   }else{
-    alert('Oh on! You are eliminated!');
+    alert('Oh no! You are eliminated!');
   }
 });
 
