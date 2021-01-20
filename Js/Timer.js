@@ -1,6 +1,5 @@
 function StartTimer(timeStamp){
-  let currentTime = Math.floor(Date.now() / 1000);
-  let time = timeStamp - currentTime;
+  time = 3;
 
   document.getElementsByClassName('CountDown')[0].style.display = 'block';
   document.getElementsByClassName('CountDown')[1].style.display = 'none';
