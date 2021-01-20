@@ -91,6 +91,7 @@ socket.on('player_disconnected', response => {
   Players[response.index].readyForAction = false;
   Players[response.index].shipLayout = null;
   Players[response.index].shotsOnGrid = [];
+  Players[response.index].shipsDestroyed = [];
   AmountPlayers--;
 
   switch (GameState) {
@@ -211,7 +212,14 @@ socket.on('player_eliminated', response => {
   if(ActivePlayerID != response.index){
     confirm(`${Players[response.index].playerName} has been eliminated!`);
   }else{
-    confirm('Oh no! You are eliminated!');
+    $('body').load('GameOver.html', () => {
+      history.pushState('data', `Battleships - ${GameState}`, 'Game');
+      document.title = `Battleships - ${GameState}`;
+      
+      document.getElementById('DefeatTitle').style.display = 'block';
+      document.getElementById('DefeatName').innerText = Players[ActivePlayerID].playerName;
+      document.getElementById('DefeatText').style.display = 'block';
+    });
   }
 });
 
@@ -234,7 +242,7 @@ function Shoot(){
   let cellPosX = parseInt(selectedCellId.split('_')[2]) - 1;
   let cellPosY = parseInt(selectedCellId.split('_')[1]) - 1;
 
-  let data = { "target_index": enemyId, "x": cellPosX, "y": cellPosY };
+  let data = { target_index:enemyId, x:cellPosX, y:cellPosY };
 
   socket.emit('shoot', data);
 }
@@ -248,7 +256,7 @@ socket.on('invalid_target', () => {
 });
 
 socket.on('ship_hit', response => {
-  Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'hit' });
+  Players[response.target_index].shotsOnGrid.push({ x:response.x, y:response.y, status:'cell-shothit' });
 
   if (AttackingPlayerId == ActivePlayerID) {
     const audio = new Audio('/Audio/shot_hit.mp3');
@@ -265,7 +273,7 @@ socket.on('ship_hit', response => {
 });
 
 socket.on('shot_missed', response => {
-  Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'miss' });
+  Players[response.target_index].shotsOnGrid.push({ x:response.x, y:response.y, status:'cell-shotmissed' });
 
   if (AttackingPlayerId == ActivePlayerID) {
     const audio = new Audio('/Audio/shot_missed.mp3');
@@ -291,7 +299,9 @@ socket.on('ship_destroyed', response => {
       if(response.target_index == ActivePlayerID){
         cellID = `PlayerGrid_${response.y + 1}_${(response.x + 1) + i}`;
       }
-      
+
+      AlterStatusOfShots(response.target_index, response.x + i, response.y);
+
       document.getElementById(cellID).classList.add('ship-destroyed');
     }
   }else{
@@ -302,10 +312,21 @@ socket.on('ship_destroyed', response => {
         cellID = `PlayerGrid_${(response.y + 1) + i}_${response.x + 1}`;
       }
 
+      AlterStatusOfShots(response.target_index, response.x, response.y + i);
+
       document.getElementById(cellID).classList.add('ship-destroyed');
     }
   }
 });
+
+function AlterStatusOfShots(playerID, x, y){
+  for (let i = 0; i < Players[playerID].shotsOnGrid.length; i++) {
+    let cell = Players[playerID].shotsOnGrid[i];
+    if(cell.x == x && cell.y == y){
+      cell.status = 'ship-destroyed';
+    }
+  }
+}
 
 ///////////////////////////////////////////////////////////
 // Will Activate When Game is over/////////////////////////

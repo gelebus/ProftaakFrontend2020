@@ -18,7 +18,7 @@ function SelectShip(e) {
 
 function PlaceShip(e){
   let selectedShip = document.getElementsByClassName('AvailableShip Active')[0];
-  
+
   if(selectedShip != null){
     let shipAmountElement = selectedShip.children[0].children[0];
     let shipMaxAmountElement = selectedShip.children[0].children[1];
@@ -42,9 +42,7 @@ function PlaceShip(e){
       shipAmount--;
       shipAmountElement.innerText = shipAmount;
 
-      if(shipAmount == 0){
-        selectedShip.classList.remove('Active');
-      }
+      selectedShip.classList.remove('Active');
     }
   }else{
     let cell = e.target;

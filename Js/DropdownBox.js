@@ -17,10 +17,11 @@ window.onclick = function(event) {
 
 function SelectPlayer(e){
   let player = e.target;
+  let playerID = player.getAttribute('opponent-id');
   let playerContainer = document.getElementById('EnemyName');
-  playerContainer.setAttribute('opponent-id', player.getAttribute('opponent-id'));
-  playerContainer.innerText = player.innerText;
-  FillEnemyGrid(player.getAttribute('opponent-id'));
+  playerContainer.setAttribute('opponent-id', playerID);
+  playerContainer.innerText = Players[playerID].playerName;
+  FillEnemyGrid(playerID);
 }
 
 function FillEnemyGrid(playerID){
@@ -29,15 +30,6 @@ function FillEnemyGrid(playerID){
   
   for (let i = 0; i < Players[playerID].shotsOnGrid.length; i++) {
     let cellInfo = Players[playerID].shotsOnGrid[i];
-    let cellElement = document.getElementById(`EnemyGrid_${cellInfo.y+1}_${cellInfo.x+1}`);
-    
-    if(cellInfo.status == 'hit'){
-      cellElement.classList.add('cell-shothit');
-    }else{
-      cellElement.classList.add('cell-shotmissed');
-    }
+    document.getElementById(`EnemyGrid_${cellInfo.y+1}_${cellInfo.x+1}`).classList.add(cellInfo.status);
   }
-
-
-  console.log(Players[playerID].shotsOnGrid);
 }
