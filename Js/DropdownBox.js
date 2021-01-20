@@ -21,8 +21,6 @@ function SelectPlayer(e){
   playerContainer.setAttribute('opponent-id', player.getAttribute('opponent-id'));
   playerContainer.innerText = player.innerText;
 
-  document.getElementById('OpponentSelect').innerText = Players[player.getAttribute('opponent-id')].playerName
-
   FillEnemyGrid(player.getAttribute('opponent-id'));
 }
 

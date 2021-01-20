@@ -186,7 +186,7 @@ socket.on('action_phase_start', () => {
     let setOpponent = false
     Players.forEach((e,i) => {
       if(i != ActivePlayerID && e.playerName != 'Free slot'){
-        let anchorElement = document.createElement('a');
+        let anchorElement = document.createElement('option');
         anchorElement.setAttribute('opponent-id',i);
         anchorElement.innerText = e.playerName;
         anchorElement.addEventListener('click', SelectPlayer);
