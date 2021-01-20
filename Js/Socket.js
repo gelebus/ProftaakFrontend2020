@@ -84,7 +84,7 @@ socket.on('player_ready', response => {
 
 socket.on('player_disconnected', response => {
   if(GameState != GAME_STATE_CONCLUDED){
-    alert(`${Players[response.index].playerName} has left the party!`);
+    confirm(`${Players[response.index].playerName} has left the party!`);
   }
 
   Players[response.index].playerName = 'Free slot';
@@ -138,8 +138,8 @@ socket.on('game_start', () => {
     $('#PlayerName').text(Players[ActivePlayerID].playerName);
     $('#PlayersReady #amount').text(AmountPlayers);
 
-    const audio = new Audio('/Audio/game_start.mp3')
-    audio.play()
+    const audio = new Audio('/Audio/game_start.mp3');
+    audio.play();
   });
 });
 
@@ -182,23 +182,24 @@ socket.on('action_phase_start', () => {
 
     AddLayoutToGrid('PlayerGrid', Players[ActivePlayerID].shipLayout);
 
-    let setOpponent = false
+    let setOpponent = false; 
     Players.forEach((e,i) => {
       if(i != ActivePlayerID && e.playerName != 'Free slot'){
-        let anchorElement = document.createElement('option');
+        let anchorElement = document.createElement('a');
         anchorElement.setAttribute('opponent-id',i);
         anchorElement.innerText = e.playerName;
         anchorElement.addEventListener('click', SelectPlayer);
         document.getElementById('OpponentList').append(anchorElement);
 
         if (!setOpponent) {
-          anchorElement.click()
+          anchorElement.click();
+          setOpponent = true;
         }
       }
     });
     
-    const audio = new Audio('/Audio/game_start.mp3')
-    audio.play()
+    const audio = new Audio('/Audio/game_start.mp3');
+    audio.play();
   });
 });
 
@@ -208,9 +209,9 @@ socket.on('action_phase_start', () => {
 
 socket.on('player_eliminated', response => {
   if(ActivePlayerID != response.index){
-    alert(`${Players[response.index].playerName} has been eliminated!`);
+    confirm(`${Players[response.index].playerName} has been eliminated!`);
   }else{
-    alert('Oh no! You are eliminated!');
+    confirm('Oh no! You are eliminated!');
   }
 });
 
@@ -220,17 +221,38 @@ socket.on('player_turn', response => {
   AttackingPlayerId = response.index;
 
   if (response.index == ActivePlayerID) {
-    const audio = new Audio('/Audio/player_turn.mp3')
-    audio.play()
+    const audio = new Audio('/Audio/player_turn.mp3');
+    audio.play();
   }
+});
+
+function Shoot(){
+  let enemyContainer = document.getElementById('EnemyName');
+  let enemyId = parseInt(enemyContainer.getAttribute('opponent-id'));
+
+  let selectedCellId = document.getElementsByClassName('grid-btn cell-selected')[0].id; 
+  let cellPosX = parseInt(selectedCellId.split('_')[2]) - 1;
+  let cellPosY = parseInt(selectedCellId.split('_')[1]) - 1;
+
+  let data = { "target_index": enemyId, "x": cellPosX, "y": cellPosY };
+
+  socket.emit('shoot', data);
+}
+
+socket.on('invalid_coordinates', () => {
+  confirm('Error: Invalid Coordinates.');
+});
+
+socket.on('invalid_target', () => {
+  confirm('Error: Please select a target.');
 });
 
 socket.on('ship_hit', response => {
   Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'hit' });
 
   if (AttackingPlayerId == ActivePlayerID) {
-    const audio = new Audio('/Audio/shot_hit.mp3')
-    audio.play()
+    const audio = new Audio('/Audio/shot_hit.mp3');
+    audio.play();
   }
 
   if(ActivePlayerID == response.target_index){
@@ -246,8 +268,8 @@ socket.on('shot_missed', response => {
   Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'miss' });
 
   if (AttackingPlayerId == ActivePlayerID) {
-    const audio = new Audio('/Audio/shot_missed.mp3')
-    audio.play()
+    const audio = new Audio('/Audio/shot_missed.mp3');
+    audio.play();
   }
 
   if(ActivePlayerID == response.target_index){
@@ -259,26 +281,31 @@ socket.on('shot_missed', response => {
   }
 });
 
-socket.on('invalid_coordinates', () => {
-  alert('Error: Invalid Coordinates');
+socket.on('ship_destroyed', response => {
+  let battleships = [2,3,4,5];
+
+  if(response.horizontal){
+    for (let i = 0; i < battleships[response.type]; i++) {
+      let cellID = `EnemyGrid_${response.y + 1}_${(response.x + 1) + i}`;
+
+      if(response.target_index == ActivePlayerID){
+        cellID = `PlayerGrid_${response.y + 1}_${(response.x + 1) + i}`;
+      }
+      
+      document.getElementById(cellID).classList.add('ship-destroyed');
+    }
+  }else{
+    for (let i = 0; i < battleships[response.type]; i++) {
+      let cellID = `EnemyGrid_${(response.y + 1) + i}_${response.x + 1}`;
+      
+      if(response.target_index == ActivePlayerID){
+        cellID = `PlayerGrid_${(response.y + 1) + i}_${response.x + 1}`;
+      }
+
+      document.getElementById(cellID).classList.add('ship-destroyed');
+    }
+  }
 });
-
-socket.on('invalid_target', () => {
-  alert('Error: Please select a target');
-});
-
-function Shoot(){
-  let enemyContainer = document.getElementById('EnemyName');
-  let enemyId = parseInt(enemyContainer.getAttribute('opponent-id'));
-
-  let selectedCellId = document.getElementsByClassName('grid-btn cell-selected')[0].id; 
-  let cellPosX = parseInt(selectedCellId.split('_')[2]) - 1;
-  let cellPosY = parseInt(selectedCellId.split('_')[1]) - 1;
-
-  let data = { "target_index": enemyId, "x": cellPosX, "y": cellPosY };
-
-  socket.emit('shoot', data);
-}
 
 ///////////////////////////////////////////////////////////
 // Will Activate When Game is over/////////////////////////
@@ -303,11 +330,11 @@ socket.on('game_concluded', response => {
   });
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Triggers if all your mates have left you alone without giving you a message #StopBullying /////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+// Triggers if all your mates have left you alone /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 
 socket.on('game_closed', () => {
-  alert('You are the only player left, thus we need to redirect you to the main menu, because you can not play this game on your own.');
-  document.location.href = 'MainMenu';
+  confirm('You are the only player left, thus we need to redirect you to the main menu, because you can not play this game on your own.');
+  document.location.href = '/MainMenu';
 });

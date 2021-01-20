@@ -60,21 +60,25 @@
   background-color: rgb(241, 122, 18);
 }
 
+.grid-btn.cell-selected {
+  background-color: rgb(241, 122, 18);
+}
+
+.grid-btn.cell-shothit {
+  background-color: #D50000;
+}
+
+.grid-btn.cell-shotmissed {
+  background-color: #0066ff;
+}
+
+.grid-btn.ship-destroyed {
+  background-color: #640303;
+}
+
 @media only screen and (max-width: 1300px) {
   .container-player {
     margin: auto;
     margin-bottom: 25px;
   }
-}
-
-.grid-btn.cell-selected{
-  background-color: rgb(241, 122, 18);
-}
-
-.grid-btn.cell-shothit{
-  background-color: #D50000;
-}
-
-.grid-btn.cell-shotmissed{
-  background-color: #0066ff;
 }

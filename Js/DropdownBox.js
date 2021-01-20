@@ -13,14 +13,13 @@ window.onclick = function(event) {
       }
     }
   }
-} 
+}
 
 function SelectPlayer(e){
   let player = e.target;
   let playerContainer = document.getElementById('EnemyName');
   playerContainer.setAttribute('opponent-id', player.getAttribute('opponent-id'));
   playerContainer.innerText = player.innerText;
-
   FillEnemyGrid(player.getAttribute('opponent-id'));
 }
 
