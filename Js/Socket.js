@@ -183,6 +183,7 @@ socket.on('action_phase_start', () => {
 
     AddLayoutToGrid('PlayerGrid', Players[ActivePlayerID].shipLayout);
 
+    let setOpponent = false
     Players.forEach((e,i) => {
       if(i != ActivePlayerID && e.playerName != 'Free slot'){
         let anchorElement = document.createElement('a');
@@ -190,6 +191,10 @@ socket.on('action_phase_start', () => {
         anchorElement.innerText = e.playerName;
         anchorElement.addEventListener('click', SelectPlayer);
         document.getElementById('OpponentList').append(anchorElement);
+
+        if (!setOpponent) {
+          anchorElement.click()
+        }
       }
     });
     
