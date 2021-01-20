@@ -14,6 +14,7 @@ let Players = [{playerName: 'Free slot',readyForAction: false,shipLayout: null,s
               {playerName: 'Free slot',readyForAction: false,shipLayout: null,shotsOnGrid: []}];
 let AmountPlayers = 0;
 let ActivePlayerID;
+let AttackingPlayerId;
 
 ///////////////////////////////////////////////////////////
 // Host or Join the lobby /////////////////////////////////
@@ -212,6 +213,8 @@ socket.on('player_eliminated', response => {
 socket.on('player_turn', response => {
   $('#PlayerTurn').text(`${Players[response.index].playerName}'s turn`);
 
+  AttackingPlayerId = response.index;
+
   if (response.index == ActivePlayerID) {
     const audio = new Audio('/Audio/player_turn.mp3')
     audio.play()
@@ -220,6 +223,11 @@ socket.on('player_turn', response => {
 
 socket.on('ship_hit', response => {
   Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'hit' });
+
+  if (AttackingPlayerId == ActivePlayerID) {
+    const audio = new Audio('/Audio/shot_hit.mp3')
+    audio.play()
+  }
 
   if(ActivePlayerID == response.target_index){
     document.getElementById(`PlayerGrid_${response.y+1}_${response.x+1}`).classList.add('cell-shothit');
@@ -232,6 +240,11 @@ socket.on('ship_hit', response => {
 
 socket.on('shot_missed', response => {
   Players[response.target_index].shotsOnGrid.push({ "x":response.x, "y":response.y, "status":'miss' });
+
+  if (AttackingPlayerId == ActivePlayerID) {
+    const audio = new Audio('/Audio/shot_missed.mp3')
+    audio.play()
+  }
 
   if(ActivePlayerID == response.target_index){
     document.getElementById(`PlayerGrid_${response.y+1}_${response.x+1}`).classList.add('cell-shotmissed');
